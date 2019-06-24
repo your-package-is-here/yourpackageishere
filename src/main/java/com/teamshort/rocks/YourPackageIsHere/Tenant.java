@@ -1,8 +1,6 @@
 package com.teamshort.rocks.YourPackageIsHere;
 
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,23 +10,23 @@ public class Tenant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    String firstName;
-    String lastName;
+    String firstname;
+    String lastname;
     String email;
-    String aptNum;
-    String phoneNum;
+    String aptnum;
+    String phonenum;
 
     @ManyToOne
     Building building;
 
     public Tenant(){}
 
-    public Tenant(String firstName, String lastName, String email, String aptNum, String phoneNum, Building building){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Tenant(String firstname, String lastname, String email, String aptnum, String phonenum, Building building){
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
-        this.aptNum = aptNum;
-        this.phoneNum = phoneNum;
+        this.aptnum = aptnum;
+        this.phonenum = phonenum;
         this.building = building;
     }
 
@@ -36,20 +34,20 @@ public class Tenant {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -60,20 +58,20 @@ public class Tenant {
         this.email = email;
     }
 
-    public String getAptNum() {
-        return aptNum;
+    public String getAptnum() {
+        return aptnum;
     }
 
-    public void setAptNum(String aptNum) {
-        this.aptNum = aptNum;
+    public void setAptnum(String aptnum) {
+        this.aptnum = aptnum;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public String getPhonenum() {
+        return phonenum;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setPhonenum(String phonenum) {
+        this.phonenum = phonenum;
     }
 
     public Building getBuilding() {

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface BuildingRepository extends CrudRepository<Building, Long> {
 
-    Building findByUsername(String userName);
+    Building findByUsername(String username);
 }

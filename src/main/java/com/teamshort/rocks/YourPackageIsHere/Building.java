@@ -1,13 +1,11 @@
 package com.teamshort.rocks.YourPackageIsHere;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.persistence.OneToMany;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,9 +15,9 @@ public class Building implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    String userName;
+    String username;
     String name;
-    String streetAdress;
+    String streetaddress;
     String city;
     String state;
     String zip;
@@ -32,10 +30,10 @@ public class Building implements UserDetails {
 
     public Building(){}
 
-    public Building(String userName, String name, String streetAdress, String city, String state, String zip, String email, String password){
-        this.userName = userName;
+    public Building(String username, String name, String streetAdress, String city, String state, String zip, String email, String password){
+        this.username = username;
         this.name = name;
-        this.streetAdress = streetAdress;
+        this.streetaddress = streetAdress;
         this.city = city;
         this.state = state;
         this.zip = zip;
@@ -47,12 +45,12 @@ public class Building implements UserDetails {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
@@ -63,12 +61,12 @@ public class Building implements UserDetails {
         this.name = name;
     }
 
-    public String getStreetAdress() {
-        return streetAdress;
+    public String getStreetaddress() {
+        return streetaddress;
     }
 
-    public void setStreetAdress(String streetAdress) {
-        this.streetAdress = streetAdress;
+    public void setStreetAdress(String streetaddress) {
+        this.streetaddress = streetaddress;
     }
 
     public String getCity() {
@@ -110,11 +108,6 @@ public class Building implements UserDetails {
 
     public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
     }
 
     @Override
