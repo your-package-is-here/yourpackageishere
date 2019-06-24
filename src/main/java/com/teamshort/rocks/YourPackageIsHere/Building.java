@@ -1,15 +1,17 @@
 package com.teamshort.rocks.YourPackageIsHere;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import javax.persistence.OneToMany;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-public class Building {
+public class Building implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +27,7 @@ public class Building {
     String password;
 
     @OneToMany(mappedBy = "building")
-    List<Tenant> tenants;
+    Set<Tenant> tenants;
 
 
     public Building(){}
@@ -101,19 +103,49 @@ public class Building {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public List<Tenant> getTenants() {
+    public Set<Tenant> getTenants() {
         return tenants;
     }
 
-    public void setTenants(List<Tenant> tenants) {
+    public void setTenants(Set<Tenant> tenants) {
         this.tenants = tenants;
     }
 }
