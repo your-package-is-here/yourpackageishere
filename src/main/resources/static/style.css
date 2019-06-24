@@ -4,6 +4,9 @@ body {
 .mt {
     margin-top: 8vh;
 }
+.special {
+    color: #CDDC39;
+}
 
 #landing-page {
     min-height: 30rem;
