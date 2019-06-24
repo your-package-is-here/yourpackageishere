@@ -30,6 +30,17 @@ public class Building {
 
     public Building(){}
 
+    public Building(String userName, String name, String streetAdress, String city, String state, String zip, String email, String password){
+        this.userName = userName;
+        this.name = name;
+        this.streetAdress = streetAdress;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.email = email;
+        this.password = password;
+    }
+
     public long getId() {
         return id;
     }

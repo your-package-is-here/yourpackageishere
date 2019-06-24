@@ -1,10 +1,38 @@
 package com.teamshort.rocks.YourPackageIsHere;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
+
+import java.text.ParseException;
+import java.util.ArrayList;
 
 @Controller
 public class BuildingController {
+
+    @Autowired
+    PasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    BuildingRepository buildingRepository;
+
+
+    @PostMapping("/buildingcreate")
+    public RedirectView createUser(String userName, String name, String streetAdress, String city, String state, String zip, String email, String password) throws ParseException {
+        String hashedpwd = bCryptPasswordEncoder.encode(password);
+        Building newBuilding = new Building(userName,name, streetAdress, city, state, zip, email, hashedpwd);
+        buildingRepository.save(newBuilding);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(newBuilding, null, new ArrayList<>());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return new RedirectView("/");
+    }
 
     @GetMapping("/")
     public String getHomePage() {
@@ -25,4 +53,7 @@ public class BuildingController {
     public String getRegisterPage() {
         return "register";
     }
+
+
+
 }
