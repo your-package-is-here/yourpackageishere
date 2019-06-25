@@ -44,22 +44,30 @@ public class BuildingController {
     }
 
     @GetMapping("/")
-    public String getHomePage() {
+    public String getHomePage(Principal principal, Model model) {
+        String p = principal == null ? "" : principal.getName();
+        model.addAttribute("principal", p);
         return "home";
     }
 
     @GetMapping("/aboutus")
-    public String getSignUpPage() {
+    public String getSignUpPage(Principal principal, Model model) {
+        String p = principal == null ? "" : principal.getName();
+        model.addAttribute("principal", p);
         return "aboutus";
     }
 
     @GetMapping("/login")
-    public String getLoginPage() {
+    public String getLoginPage(Principal principal, Model model) {
+        String p = principal == null ? "" : principal.getName();
+        model.addAttribute("principal", p);
         return "login";
     }
 
     @GetMapping("/register")
-    public String getRegisterPage() {
+    public String getRegisterPage(Principal principal, Model model) {
+        String p = principal == null ? "" : principal.getName();
+        model.addAttribute("principal", p);
         return "register";
     }
 

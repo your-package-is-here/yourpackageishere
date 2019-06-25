@@ -1,12 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300|Poppins|Rubik&display=swap');
+
+
 body {
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
 }
+
+form {
+    border: 1px solid #ccc !important;
+    padding: 1rem !important;
+    font-family: 'Poppins', sans-serif;
+    -webkit-box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
+    -moz-box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
+    box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
+}
+
 .mt {
     margin-top: 8vh;
 }
+
 .special {
     color: #CDDC39;
 }
+
+.header-bar {
+    width: 30%;
+    height: 4px;
+    margin-bottom: 2vh !important;
+    margin-left: 2vh !important;
+    background-image: url(assets/hr-img.png);
+    background-size: 3px;
+    background-repeat: repeat;
+}
+
+
+#register {
+   position: relative;
+   margin-top: 14vh;
+}
+#register h3 {
+    font-family: 'Rubik', sans-serif;
+    margin-bottom: 2vh;
+    font-size:2.5rem;
+    line-height:1;
+    font-weight: 300;
+}
+
 
 #landing-page {
     min-height: 30rem;
@@ -26,10 +65,12 @@ body {
 #landing-content {
     color: #fff;
     margin-top: 25vh;
+    margin-left:5vh;
 }
 
-#landing-content h2 {
-    font-size:2.5rem;
+ #landing-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size:2.2rem;
     line-height:1;
     font-weight: 300;
 }
