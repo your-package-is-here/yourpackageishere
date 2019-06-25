@@ -15,12 +15,15 @@ public class Building implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
+    @Column(unique=true)
     String username;
     String name;
     String streetaddress;
     String city;
     String state;
     String zip;
+
+    @Column(unique=true)
     String email;
     String password;
 

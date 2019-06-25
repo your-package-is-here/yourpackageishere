@@ -31,9 +31,9 @@ public class BuildingController {
 
 
     @PostMapping("/buildingcreate")
-    public RedirectView createUser(String userName, String name, String streetAdress, String city, String state, String zip, String email, String password) throws ParseException {
+    public RedirectView createUser(String username, String name, String streetaddress, String city, String state, String zip, String email, String password) throws ParseException {
         String hashedpwd = bCryptPasswordEncoder.encode(password);
-        Building newBuilding = new Building(userName,name, streetAdress, city, state, zip, email, hashedpwd);
+        Building newBuilding = new Building(username,name, streetaddress, city, state, zip, email, hashedpwd);
         buildingRepository.save(newBuilding);
         Authentication authentication = new UsernamePasswordAuthenticationToken(newBuilding, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
