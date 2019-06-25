@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class BuildingController {
@@ -25,6 +27,9 @@ public class BuildingController {
 
     @Autowired
     BuildingRepository buildingRepository;
+
+    @Autowired
+    TenantRepository tenantRepository;
 
 
     @PostMapping("/buildingcreate")
@@ -73,14 +78,23 @@ public class BuildingController {
     }
 
     @PostMapping("/sendemail")
-    public RedirectView sendEmailTenant(Principal p, String trackingNumber, String aptnum, String firstname, String lastname, Model m){
+    public RedirectView sendEmailTenant(Principal p, Model m, String trackingnumber, String aptnum, String firstname, String lastname){
+        //Get the manager object
         Building manager = buildingRepository.findByUsername(p.getName());
-        Boolean isSent = sendEmailHelper(manager.email, "testingpackage1@yandex.com");
+
+        //Do logic to find the appropriate user(s) to send the email too
+        List<Tenant> tenants = getTenantHelper(firstname, lastname, aptnum);
+        //This will send the email
+        Boolean isSent = false;
+        // Some for loop
+        isSent = sendEmailHelper(manager.email, "kush_shrestha01@yahoo.com");
         m.addAttribute(isSent);
+        m.addAttribute("isTenants", !tenants.isEmpty());
         m.addAttribute(p);
         return new RedirectView("/sendemail");
     }
 
+    // This method sends the email to the appropriate user.
     public static Boolean sendEmailHelper(String sender, String receiver){
         Email from = new Email(sender);
         Email to = new Email (receiver);
@@ -104,7 +118,35 @@ public class BuildingController {
         }
     }
 
-    //to do method for tenant
+    // This funciton returns a List of all possible and appropriate tenants.
+    public List<Tenant> getTenantHelper(String firstname, String lastname, String aptnum){
+        // Gets a list of tenants ignoring case on first and last name
+        List<Tenant> tenants = tenantRepository.findByFirstnameIgnoreCaseContainingAndLastnameIgnoreCaseContaining(firstname, lastname);
+        // If there are matches on the first and last name
+        if(!tenants.isEmpty()){
+            // Checks to see if the list contains the correct apt number
+            if(containsAptnum(tenants, aptnum)){
+                // Returns the tenants whose first and last name and apt number match
+                tenants = tenants
+                        .stream()
+                        .filter(tenant -> tenant.getAptnum().toLowerCase().equals(aptnum.toLowerCase()))
+                        .collect(Collectors.toList());
+                return tenants;
+            }else {
+                // Returns all tenants via first and last name is apt is not a match
+                return tenants;
+            }
+        }else{
+            // If we found not matches based on name go solely on apt number
+            tenants = tenantRepository.findByAptnumIgnoreCaseContaining(aptnum);
+        }
+        // Return whatever tenants we have acquired.
+        return tenants;
+    }
 
+    // This function filters and returns true or false if there is a tenant with a matching apt number
+    public boolean containsAptnum(final List<Tenant> tenants, String aptnum){
+        return tenants.stream().filter(tenant -> tenant.getAptnum().toLowerCase().equals(aptnum.toLowerCase())).findFirst().isPresent();
+    }
 
 }
