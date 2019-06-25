@@ -13,14 +13,14 @@
 <div th:replace="fragments/header :: header">...</div>
 <!-- Put everything in this div -->
 <div class="container mt">
-    <h3>View all Tenants</h3>
+    <h3>Tenants</h3>
     <div>
         <li th:each="tenant : ${tenants}">
             <span th:text="${tenant.firstname}"></span>
             <span th:text="${tenant.lastname}"></span>
 
             <a th:href="'/tenant/' + ${tenant.id}">Edit</a>
-            <a th:href="'/tenant/' + ${tenant.id}">Delete</a>
+            <a th:href="'/tenant/' + ${tenant.id} + '/delete'">Delete</a>
         </li>
         <br>
     </div>
