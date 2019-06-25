@@ -12,6 +12,8 @@ public class Tenant {
 
     String firstname;
     String lastname;
+
+    @Column(unique=true)
     String email;
     String aptnum;
     String phonenum;
