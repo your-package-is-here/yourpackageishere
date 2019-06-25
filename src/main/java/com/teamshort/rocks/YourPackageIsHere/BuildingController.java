@@ -78,8 +78,10 @@ public class BuildingController {
         List<Tenant> tenants = getTenantHelper(firstname, lastname, aptnum);
         //This will send the email
         Boolean isSent = false;
-        // to do: Some for loop
-        isSent = sendEmailHelper(manager.email, "kush_shrestha01@yahoo.com");
+        // for loop to send email to all the tenants in the apartment if first name and last name does not match.
+        for(Tenant tenant: tenants){
+            isSent = sendEmailHelper(manager.email, tenant.email);
+        }
         m.addAttribute(isSent);
         m.addAttribute("isTenants", !tenants.isEmpty());
         m.addAttribute(p);
