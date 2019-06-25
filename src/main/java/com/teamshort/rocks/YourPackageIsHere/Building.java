@@ -15,12 +15,15 @@ public class Building implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
+    @Column(unique=true)
     String username;
     String name;
     String streetaddress;
     String city;
     String state;
     String zip;
+
+    @Column(unique=true)
     String email;
     String password;
 
@@ -30,10 +33,10 @@ public class Building implements UserDetails {
 
     public Building(){}
 
-    public Building(String username, String name, String streetAdress, String city, String state, String zip, String email, String password){
+    public Building(String username, String name, String streetaddress, String city, String state, String zip, String email, String password){
         this.username = username;
         this.name = name;
-        this.streetaddress = streetAdress;
+        this.streetaddress = streetaddress;
         this.city = city;
         this.state = state;
         this.zip = zip;
