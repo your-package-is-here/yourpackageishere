@@ -10,9 +10,9 @@ form {
     border: 1px solid #ccc !important;
     padding: 1rem !important;
     font-family: 'Poppins', sans-serif;
-    -webkit-box-shadow: 0 8px 6px -6px rgba();
-    -moz-box-shadow: 0 8px 6px -6px rgba;
-    box-shadow: 0 8px 6px -6px rgba;
+    -webkit-box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
+    -moz-box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
+    box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
 }
 
 .mt {
@@ -24,12 +24,13 @@ form {
 }
 
 .header-bar {
-        width: 100%;
-        height: 4px;
-        margin-bottom: 2vh !important;
-        background-image: url(assets/hr-img.png);
-        background-size: 3px;
-        background-repeat: repeat;
+    width: 30%;
+    height: 4px;
+    margin-bottom: 2vh !important;
+    margin-left: 2vh !important;
+    background-image: url(assets/hr-img.png);
+    background-size: 3px;
+    background-repeat: repeat;
 }
 
 
@@ -39,7 +40,7 @@ form {
 }
 #register h3 {
     font-family: 'Rubik', sans-serif;
-    margin-bottom: 1vh;
+    margin-bottom: 2vh;
     font-size:2.5rem;
     line-height:1;
     font-weight: 300;
