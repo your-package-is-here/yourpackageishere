@@ -20,4 +20,9 @@ public class TenantController {
         return "tenant";
     }
 
+    @GetMapping("/tenant/add")
+    public String getTenantAddPage() {
+        return "tenant";
+    }
+
 }

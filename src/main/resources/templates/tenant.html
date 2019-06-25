@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tenant</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="/style.css" rel="stylesheet" type="text/css" />
@@ -16,7 +18,20 @@
 <div class="container mt">
 <h3>Tenant</h3>
 
+    <form method="POST" action="/tenantcreate">
+        <!--    String firstname, String lastname, String email, String aptnum, String phonenum, Building building-->
+        <p><label for="firstname">First Name</label><input name="firstname" id="firstname"/></p>
+        <p><label for="lastname">Last Name</label><input name="lastname" id="lastname" /></p>
+        <p><label for="email">Email</label><input type="email" name="email" id="email"/></p>
+        <p><label for="aptnum">Apartment Number</label><input name="aptnum" id="aptnum" /></p>
+        <p><label for="phonenum">Phone Number</label><input name="phonenum" id="phonenum" /></p>
+
+        <input type="submit" />
+
+    </form>
 </div>
+
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
