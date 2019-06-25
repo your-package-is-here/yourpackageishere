@@ -18,12 +18,13 @@ public class TenantController {
     TenantRepository tenantRepository;
   
     @GetMapping("/tenant/all")
-    public String getAllTenants(Principal principal, Model model){
+    public String getAllTenants(Principal principal, Model model) {
         String p = principal == null ? "" : principal.getName();
         Iterable<Tenant> tenants = tenantRepository.findAll();
         model.addAttribute("principal", p);
         model.addAttribute("tenants", tenants);
         return "allTenants";
+    }
 
     @Autowired
     BuildingRepository buildingRepository;
