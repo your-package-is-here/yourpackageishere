@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/security">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Tenant</title>
+</head>
+<body>
+
+<div class="tenantCreate" th:fragement="tenantCreate">
+    <form method="POST" action="/tenantcreate">
+        <!--    String firstname, String lastname, String email, String aptnum, String phonenum, Building building-->
+        <p><label for="firstname">First Name</label><input name="firstname" id="firstname"/></p>
+        <p><label for="lastname">Last Name</label><input name="lastname" id="lastname" /></p>
+        <p><label for="email">Email</label><input type="email" name="email" id="email"/></p>
+        <p><label for="aptnum">Apartment Number</label><input name="aptnum" id="aptnum" /></p>
+        <p><label for="phonenum">Phone Number</label><input name="phonenum" id="phonenum" /></p>
+
+        <input type="submit" />
+
+    </form>
+
+</div>
+
+</body>
+</html>

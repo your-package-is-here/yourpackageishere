@@ -18,20 +18,17 @@
 <div class="container mt">
 <h3>Tenant</h3>
 
-    <form method="POST" action="/tenantcreate">
-        <!--    String firstname, String lastname, String email, String aptnum, String phonenum, Building building-->
-        <p><label for="firstname">First Name</label><input name="firstname" id="firstname"/></p>
-        <p><label for="lastname">Last Name</label><input name="lastname" id="lastname" /></p>
-        <p><label for="email">Email</label><input type="email" name="email" id="email"/></p>
-        <p><label for="aptnum">Apartment Number</label><input name="aptnum" id="aptnum" /></p>
-        <p><label for="phonenum">Phone Number</label><input name="phonenum" id="phonenum" /></p>
 
-        <input type="submit" />
+    <span th:if="${tenant == null}">
+        <div th:replace="fragments/tenantCreate :: .tenantCreate">...</div>
+    </span>
+    <span th:unless="${tenant == null}">
+        <div th:replace="fragments/tenantEdit :: .tenantEdit">...</div>
+    </span>
 
-    </form>
+
+
 </div>
-
-
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
