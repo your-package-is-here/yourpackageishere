@@ -19,7 +19,7 @@ public class BuildingTest {
 
     @Test
     public void testBuildingConstructor(){
-//        Building(String username, String name, String streetaddress, String city, String state, String zip, String email, String password)
+//  Building(String username, String name, String streetaddress, String city, String state, String zip, String email, String password)
     Building building = new Building("bloop","Bloop Building","1 Bloop Ave",
             "Bloop City", "WA", "90210","bloop@bloop.com","bloop123");
     assertEquals("bloop",building.username);
@@ -33,4 +33,6 @@ public class BuildingTest {
 
     }
 
-}
+
+
+}//end of building test class
