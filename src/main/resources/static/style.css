@@ -23,6 +23,31 @@ form {
     color: #CDDC39;
 }
 
+.tenant-btn {
+    padding-right: 3vh;
+    float: right;
+}
+
+.fa-user-times {
+    color: red;
+}
+
+.fa-user-edit {
+    color: green;
+}
+.tenant-name {
+    font-size: 18px;
+    letter-spacing: 0.1em;
+}
+
+/* Need Media query */
+.fa-user-plus {
+    position: absolute;
+    top: 500px;
+    left: 73vw;
+    font-size: 35px;
+}
+
 .header-bar {
     width: 30%;
     height: 4px;
@@ -34,11 +59,11 @@ form {
 }
 
 
-#register {
+#register, #all-tenants {
    position: relative;
    margin-top: 14vh;
 }
-#register h3 {
+#register h3, #all-tenants h3 {
     font-family: 'Rubik', sans-serif;
     margin-bottom: 2vh;
     font-size:2.5rem;
@@ -47,6 +72,7 @@ form {
 }
 
 
+/* Need Media query */
 #landing-page {
     min-height: 30rem;
     position: relative;
