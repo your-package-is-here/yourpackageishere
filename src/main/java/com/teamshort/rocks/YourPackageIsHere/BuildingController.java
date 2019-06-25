@@ -150,5 +150,4 @@ public class BuildingController {
     public boolean containsAptnum(final List<Tenant> tenants, String aptnum){
         return tenants.stream().filter(tenant -> tenant.getAptnum().toLowerCase().equals(aptnum.toLowerCase())).findFirst().isPresent();
     }
-
 }
