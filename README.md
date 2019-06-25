@@ -17,16 +17,16 @@ packages in the building for tenants' delieveries and send an email as a notific
    - Bootstrap
 
 ### Entities
-- Building
-- Tenant
+- [Building](./src/main/java/com/teamshort/rocks/YourPackageIsHere/Building.java)
+- [Tenant](./src/main/java/com/teamshort/rocks/YourPackageIsHere/Tenant.java)
 
 ### Controllers
-- BuildingController
-- TenantController
+- [BuildingController](./src/main/java/com/teamshort/rocks/YourPackageIsHere/BuildingController.java)
+- [TenantController](./src/main/java/com/teamshort/rocks/YourPackageIsHere/TenantController.java)
 
 ### CRUD Repositories
-- BuildingRepository
-- TenantRepository
+- [BuildingRepository](./src/main/java/com/teamshort/rocks/YourPackageIsHere/BuildingRepository.java)
+- [TenantRepository](./src/main/java/com/teamshort/rocks/YourPackageIsHere/TenantRepository.java)
 
 ### Routes
     @GetMapping("/")
