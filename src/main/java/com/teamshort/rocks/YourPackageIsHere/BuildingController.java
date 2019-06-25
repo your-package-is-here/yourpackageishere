@@ -86,7 +86,7 @@ public class BuildingController {
         List<Tenant> tenants = getTenantHelper(firstname, lastname, aptnum);
         //This will send the email
         Boolean isSent = false;
-        // Some for loop
+        // to do: Some for loop
         isSent = sendEmailHelper(manager.email, "kush_shrestha01@yahoo.com");
         m.addAttribute(isSent);
         m.addAttribute("isTenants", !tenants.isEmpty());
@@ -94,7 +94,7 @@ public class BuildingController {
         return new RedirectView("/sendemail");
     }
 
-    // This method sends the email to the appropriate user.
+    // This method sends the email to the appropriate user using sendgrid api
     public static Boolean sendEmailHelper(String sender, String receiver){
         Email from = new Email(sender);
         Email to = new Email (receiver);
