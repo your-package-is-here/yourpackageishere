@@ -1,4 +1,4 @@
-# yourpackageishere
+# Your Package Is Here
 401 Mid-Course Java Project
 
 ### Summary
@@ -11,10 +11,16 @@ packages in the building for tenants' delieveries and send an email as a notific
    - [Reina Vencer](https://github.com/river-ceanne)
    - [Devon Hackley](https://github.com/devonhackley)
    - [John Winters](https://github.com/thatsjustjohn)
+   
 
 ### Frameworks & Technologies Used
    - Spring Boot (MVC)
    - Bootstrap
+   
+### Starter Guide
+
+
+#### Deployed Link: [TO DO . . . ]()
 
 ### Entities
 - [Building](./src/main/java/com/teamshort/rocks/YourPackageIsHere/Building.java)

@@ -76,7 +76,7 @@ public class BuildingController {
     public String sendEmail(Principal p, Model m){
         System.out.println(m.containsAttribute("isSent"));
         m.addAttribute(p);
-        return "/sendemail";
+        return "sendemail";
     }
 
     @PostMapping("/sendemail")
