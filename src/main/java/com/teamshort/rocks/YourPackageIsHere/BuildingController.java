@@ -96,6 +96,7 @@ public class BuildingController {
         return new RedirectView("/sendemail");
     }
 
+    //    https://www.youtube.com/watch?v=06M3lZzZEMY
     // This method sends the email to the appropriate user using sendgrid api
     public static Boolean sendEmailHelper(String sender, String receiver){
         Email from = new Email(sender);

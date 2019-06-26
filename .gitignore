@@ -239,3 +239,4 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/java,macos,android,androidstudio
 **markdown-navigator.xml
+.DS_Store
