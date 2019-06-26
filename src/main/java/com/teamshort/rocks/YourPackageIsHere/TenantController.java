@@ -68,11 +68,11 @@ public class TenantController {
     }
 
     @DeleteMapping("/tenant/{id}/delete")
-    public void deleteTenant(Principal p, @PathVariable String id, Model m) {
+    public String deleteTenant(Principal p, @PathVariable String id, Model m) {
         long ID = Long.parseLong(id);
         Tenant tenant = tenantRepository.findById(ID);
         tenantRepository.delete(tenant);
-        getAllTenants(p, m);
+        return getAllTenants(p, m);
     }
 
 }

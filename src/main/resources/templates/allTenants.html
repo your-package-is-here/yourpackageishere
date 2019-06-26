@@ -53,8 +53,7 @@
                 url: `/tenant/${id}/delete`,
                 type: 'DELETE',
                 success: function(result) {
-                    console.log(result);
-                    console.log("Tenant deleted");
+                    location.reload();
                 }
             });
 
