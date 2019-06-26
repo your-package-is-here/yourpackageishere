@@ -67,14 +67,12 @@ public class TenantController {
         return new RedirectView("/tenant/all");
     }
 
-    //TODO: a little hacky, I know I should use delete mapping but wasn't working, so used a GET
-    @GetMapping("/tenant/{id}/delete")
-    public RedirectView deleteTenant(Principal p, @PathVariable String id) {
+    @DeleteMapping("/tenant/{id}/delete")
+    public String deleteTenant(Principal p, @PathVariable String id, Model m) {
         long ID = Long.parseLong(id);
         Tenant tenant = tenantRepository.findById(ID);
         tenantRepository.delete(tenant);
-
-        return new RedirectView("/tenant/all");
+        return getAllTenants(p, m);
     }
 
 }
