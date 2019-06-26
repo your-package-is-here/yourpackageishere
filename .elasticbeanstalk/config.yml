@@ -1,0 +1,20 @@
+deploy:
+  artifact: build/libs/YourPackageIsHere-0.0.1-SNAPSHOT.jar
+branch-defaults:
+  reina-day3:
+    environment: null
+    group_suffix: null
+global:
+  application_name: YourPackageIsHere
+  branch: null
+  default_ec2_keyname: aws-eb
+  default_platform: Java 8
+  default_region: us-west-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: git
+  workspace_type: Application
