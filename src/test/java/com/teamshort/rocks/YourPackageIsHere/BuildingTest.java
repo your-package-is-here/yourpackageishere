@@ -1,13 +1,27 @@
 package com.teamshort.rocks.YourPackageIsHere;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Controller
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class BuildingTest {
 
     @Test
@@ -156,12 +170,42 @@ public class BuildingTest {
     //  -----------  END-TO-END TESTS  ----------------  //
 
     @Autowired
+    MockMvc mockMvc;
+
+    @Autowired
     BuildingRepository buildingRepository;
 
     @Test
-    public void testBuildingCreate(){
+    public void testBuildingCRUD() throws Exception {
+//String username, String name, String streetaddress, String city, String state, String zip, String email, String password
+        Building building = initialize();
 
+//        "bloop","Bloop Building","1 Bloop Ave",
+//                "Bloop City", "WA", "90210","bloop@bloop.com","bloop123"
 
+        mockMvc.perform(
+                post("/buildingcreate")
+                        .param("username", "bloop")
+                        .param("name", "Bloop Building")
+                        .param("streetaddress", "1 Bloop Ave")
+                        .param("city", "Bloop City")
+                        .param("state", "WA")
+                        .param("zip",  "90210")
+                        .param("email", "bloop@bloop.com")
+                        .param("password", "bloop123"))
+                        .andDo(print())
+                .andExpect(header().string("location", containsString("/")));
+
+        assertEquals(building.name,buildingRepository.findByUsername("bloop").getName());
+
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
