@@ -30,14 +30,43 @@ form {
 
 .fa-user-times {
     color: red;
+    font-size: 18px;
 }
 
 .fa-user-edit {
     color: green;
+    font-size: 18px;
 }
-.tenant-name {
+
+.tenant {
     font-size: 18px;
     letter-spacing: 0.1em;
+}
+
+/* Four Need Media queries */
+#tenant-header-name {
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    margin-left: 27vw;
+    font-weight: 500;
+}
+
+#tenant-header-apt {
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    margin-left: 1.3vw;
+    font-weight: 500;
+}
+
+#tenant-header-action {
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    margin-left: 32vw;
+    font-weight: 500;
+}
+
+#tenant-apt {
+    padding-right: 28.5vw;
 }
 
 /* Need Media query */
@@ -65,7 +94,7 @@ form {
 }
 #register h3, #all-tenants h3 {
     font-family: 'Rubik', sans-serif;
-    margin-bottom: 2vh;
+    margin-bottom: 3vh;
     font-size:2.5rem;
     line-height:1;
     font-weight: 300;

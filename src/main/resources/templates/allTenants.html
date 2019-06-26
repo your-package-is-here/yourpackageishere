@@ -8,9 +8,10 @@
     <link href="/style.css" rel="stylesheet" type="text/css" />
     <link href="/reset.css" rel="stylesheet" type="text/css" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet" type="text/css" />
-    <link href="../static/fontawesome-free-5.9.0-web/css/fontawesome.min.css" rel="stylesheet" th:href="@{/fontawesome-free-5.9.0-web/css/fontawesome.min.css}" type="text/css"/>
-    <link href="../static/fontawesome-free-5.9.0-web/css/solid.min.css" rel="stylesheet" th:href="@{/fontawesome-free-5.9.0-web/css/solid.min.css}" type="text/css"/>
-    <link href="../static/fontawesome-free-5.9.0-web/css/regular.min.css" rel="stylesheet" th:href="@{/fontawesome-free-5.9.0-web/css/regular.min.css}" type="text/css"/>
+    <script src="https://kit.fontawesome.com/c36d981c19.js"></script>
+<!--    <link href="../static/fontawesome-free-5.9.0-web/css/fontawesome.min.css" rel="stylesheet" th:href="@{/fontawesome-free-5.9.0-web/css/fontawesome.min.css}" type="text/css"/>-->
+<!--    <link href="../static/fontawesome-free-5.9.0-web/css/solid.min.css" rel="stylesheet" th:href="@{/fontawesome-free-5.9.0-web/css/solid.min.css}" type="text/css"/>-->
+<!--    <link href="../static/fontawesome-free-5.9.0-web/css/regular.min.css" rel="stylesheet" th:href="@{/fontawesome-free-5.9.0-web/css/regular.min.css}" type="text/css"/>-->
 </head>
 <body>
 <div th:replace="fragments/header :: header">...</div>
@@ -19,9 +20,16 @@
     <h3 class="text-center">Tenants</h3>
     <div>
         <ul class="list-group list-group-flush">
+            <li class="list-grou-item">
+                <span id="tenant-header-apt">Apt. #</span>
+                <span id="tenant-header-name">Name</span>
+                <span id="tenant-header-action">Action</span>
+            </li>
             <li class="list-group-item" th:each="tenant : ${tenants}">
-                <span class="tenant-name" th:text="${tenant.firstname}"></span>
-                <span class="tenant-name" th:text="${tenant.lastname}"></span>
+                <span class="tenant" id="tenant-apt" th:text="${tenant.aptnum}"></span>
+                <span class="tenant" th:text="${tenant.firstname}"></span>
+                <span class="tenant" th:text="${tenant.lastname}"></span>
+
 
                 <a class="tenant-btn" th:href="'/tenant/' + ${tenant.id} + '/delete'" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></a>
                 <a class="tenant-btn" th:href="'/tenant/' + ${tenant.id}" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fas fa-user-edit"></i></a>
@@ -29,7 +37,7 @@
         </ul>
         <br>
     </div>
-    <a href="/tenant/add" data-placement="right" data-toggle="tooltip" data-original-title="Add"><i class="fas fa-user-plus"></i></a>
+    <a href="/tenant/add"><i class="fas fa-user-plus"></i></a>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
