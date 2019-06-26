@@ -90,7 +90,7 @@ public class BuildingController {
         Boolean isSent = false;
         // for loop to send email to all the tenants in the apartment if first name and last name does not match.
         for(Tenant tenant: tenants){
-            isSent = sendEmailHelper(manager.email, tenant.email);
+            isSent = sendEmailHelper(manager, tenant, trackingnumber);
         }
         m.addAttribute("message",createMessage(isSent, !tenants.isEmpty()));
         m.addAttribute("isSent", isSent);
@@ -114,11 +114,12 @@ public class BuildingController {
 
     // https://www.youtube.com/watch?v=06M3lZzZEMY
     // This method sends the email to the appropriate user using sendgrid api
-    public static Boolean sendEmailHelper(String sender, String receiver){
-        Email from = new Email(sender);
-        Email to = new Email (receiver);
+    public static Boolean sendEmailHelper(Building sender, Tenant receiver, String trackingnumber){
+        Email from = new Email(sender.email);
+        Email to = new Email (receiver.email);
         String subject = "Your package has arrived";
-        Content content = new Content("text/plain", "Your Package is at the office");
+        String message = String.format("Hello %s,\nYour package(tracking number %s) has been received at the %s office.\n", receiver.firstname, trackingnumber, sender.name);
+        Content content = new Content("text/plain", message);
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
