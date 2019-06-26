@@ -3,10 +3,7 @@ package com.teamshort.rocks.YourPackageIsHere;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
@@ -56,7 +53,7 @@ public class TenantController {
         return new RedirectView("/tenant/all");
     }
 
-    @PostMapping("/tenantedit")
+    @PutMapping("/tenantedit")
     public RedirectView editTenant(Principal p, String id, String firstname, String lastname, String email, String aptnum, String phonenum) throws ParseException {
         long ID = Long.parseLong(id);
         Tenant tenant = tenantRepository.findById(ID);

@@ -1,10 +1,13 @@
 package com.teamshort.rocks.YourPackageIsHere;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.Assert.*;
 
+@Controller
 public class BuildingTest {
 
     @Test
@@ -148,6 +151,17 @@ public class BuildingTest {
         Building building = initialize();
         building.setPassword("1234");
         assertEquals("1234", building.getPassword());
+    }
+
+    //  -----------  END-TO-END TESTS  ----------------  //
+
+    @Autowired
+    BuildingRepository buildingRepository;
+
+    @Test
+    public void testBuildingCreate(){
+
+
     }
 
 
