@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
@@ -73,6 +74,7 @@ public class BuildingController {
 
     @GetMapping("/sendemail")
     public String sendEmail(Principal p, Model m){
+        System.out.println(m.containsAttribute("isSent"));
         m.addAttribute(p);
         return "sendemail";
     }
@@ -90,13 +92,28 @@ public class BuildingController {
         for(Tenant tenant: tenants){
             isSent = sendEmailHelper(manager.email, tenant.email);
         }
-        m.addAttribute(isSent);
-        m.addAttribute("isTenants", !tenants.isEmpty());
-        m.addAttribute(p);
+        m.addAttribute("message",createMessage(isSent, !tenants.isEmpty()));
+        m.addAttribute("isSent", isSent);
+        m.addAttribute("principal", p);
         return new RedirectView("/sendemail");
     }
 
-    //    https://www.youtube.com/watch?v=06M3lZzZEMY
+    // This method creates the success or error message
+    private String createMessage(boolean isSent, boolean isTenants){
+        String message;
+        if(isSent){
+            message = "Your Email has been sent.";
+        }else{
+            if(isTenants){
+                message = "There was a problem sending the email.";
+            }else{
+                message = "No matching tenants were found.";
+            }
+        }
+        return message;
+    }
+
+    // https://www.youtube.com/watch?v=06M3lZzZEMY
     // This method sends the email to the appropriate user using sendgrid api
     public static Boolean sendEmailHelper(String sender, String receiver){
         Email from = new Email(sender);
