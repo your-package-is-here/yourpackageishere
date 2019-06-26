@@ -181,11 +181,7 @@ public class BuildingTest {
 
     @Test
     public void testBuildingCRUD() throws Exception {
-//String username, String name, String streetaddress, String city, String state, String zip, String email, String password
         Building building = initialize();
-
-//        "bloop","Bloop Building","1 Bloop Ave",
-//                "Bloop City", "WA", "90210","bloop@bloop.com","bloop123"
 
         mockMvc.perform(
                 post("/buildingcreate")
@@ -200,20 +196,24 @@ public class BuildingTest {
                         .andDo(print())
                 .andExpect(header().string("location", containsString("/")));
 
-        Building buildingRes = buildingRepository.findByUsername("bloop");
-        assertEquals(building.name,buildingRes.getName());
+        Building buildingResCreate = buildingRepository.findByUsername("bloop");
 
-        mockMvc.perform(get("/login")).andExpect(content().string(containsString("Username:")));
+        assertEquals(building.name,buildingResCreate.getName()); // check Creation and Read data
+
+        //UPDATE instance' name
+        buildingResCreate.setName("New Name");
+        buildingRepository.save(buildingResCreate);
+
+        Building buildingResUpdate = buildingRepository.findByUsername("bloop");
+
+
+        assertEquals("New Name",buildingResUpdate.getName()); // check Update and Read data
+
+
+        //DELETE created test building instance from DB table
+        buildingRepository.delete(buildingResUpdate);
+        assertNull(buildingRepository.findByUsername("bloop"));
 
     }
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 
 }//end of building test class
