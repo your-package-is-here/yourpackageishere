@@ -2,9 +2,12 @@ package com.teamshort.rocks.YourPackageIsHere;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface TenantRepository extends CrudRepository<Tenant, Long> {
+import java.util.List;
 
+public interface TenantRepository extends CrudRepository<Tenant, Long> {
+    List<Tenant> findByFirstnameIgnoreCaseAndLastnameIgnoreCase(String firstname, String lastname);
+    List<Tenant> findByAptnumIgnoreCase(String aptnum);
     Tenant findById(long id);
     Tenant findByEmail(String email);
-
+    List<Tenant> findByBuilding(Building building);
 }

@@ -8,26 +8,56 @@
     <link href="/style.css" rel="stylesheet" type="text/css" />
     <link href="/reset.css" rel="stylesheet" type="text/css" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet" type="text/css" />
+    <script src="https://kit.fontawesome.com/c36d981c19.js"></script>
 </head>
 <body>
 <div th:replace="fragments/header :: header">...</div>
 <!-- Put everything in this div -->
-<div class="container mt">
-    <h3>View all Tenants</h3>
+<div class="container mt" id="all-tenants">
+    <h3>Tenants</h3>
     <div>
-        <li th:each="tenant : ${tenants}">
-            <span th:text="${tenant.firstname}"></span>
-            <span th:text="${tenant.lastname}"></span>
+        <ul class="list-group list-group-flush">
+            <li class="list-grou-item">
+                <span id="tenant-header-apt">Apt. #</span>
+                <span id="tenant-header-name">Name</span>
+                <span id="tenant-header-action">Action</span>
+            </li>
+            <li class="list-group-item" th:each="tenant : ${tenants}">
+                <span class="tenant" id="tenant-apt" th:text="${tenant.aptnum}"></span>
+                <span class="tenant" th:text="${tenant.firstname}"></span>
+                <span class="tenant" th:text="${tenant.lastname}"></span>
 
-            <a th:href="'/tenant/' + ${tenant.id}">Edit</a>
-            <a th:href="'/tenant/' + ${tenant.id}">Delete</a>
-        </li>
+<!--                <form th:action="'/tenant/' + ${tenant.id} + '/delete'" method="POST">-->
+<!--                    <button type="submit">Delete</button>-->
+<!--                </form>-->
+<!--                <button id="tenant-delete" class="tenant-btn" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></button>-->
+                <a id="tenant-delete" class="tenant-btn" th:href="'/tenant/' + ${tenant.id}+ '/delete'" th:attr="onclick='javascript:deleteTenant(\''+ ${tenant.id} + '\')'" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></a>
+                <a class="tenant-btn" th:href="'/tenant/' + ${tenant.id}" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fas fa-user-edit"></i></a>
+            </li>
+        </ul>
         <br>
     </div>
+    <a href="/tenant/add"><i class="fas fa-user-plus"></i></a>
 </div>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('a').hover().tooltip();
+    });
+    function deleteTenant(id) {
+            console.log(id);
+            event.preventDefault();
+            $.ajax({
+                url: `/tenant/${id}/delete`,
+                type: 'DELETE',
+                success: function(result) {
+                    location.reload();
+                }
+            });
+
+    }
+</script>
 </body>
 </html>
