@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-<!--    <script type="text/javascript" th:src="|scripts/qr-scanner.min.js|"></script>-->
-<!--    <script type="text/javascript" th:src="|scripts/qr-scanner-worker.min.js|"></script>-->
-
     <title>Send Email</title>
 
 </head>
@@ -25,49 +22,66 @@
         margin-bottom: 16px;
     }
 </style>
-<h1>Scan from WebCam:</h1>
+<h1>Scan from QR Code From WebCam:</h1>
+
 <div>
     <b>Device has camera: </b>
     <span id="cam-has-camera"></span>
     <br>
     <video muted playsinline id="qr-video" width="400px"></video>
 </div>
-<div>
-    <select id="inversion-mode-select">
-        <option value="original">Scan original (dark QR code on bright background)</option>
-        <option value="invert">Scan with inverted colors (bright QR code on dark background)</option>
-        <option value="both">Scan both</option>
-    </select>
-    <br>
-</div>
 <b>Detected QR code: </b>
 <span id="cam-qr-result">None</span>
 <br>
 <b>Last detected at: </b>
 <span id="cam-qr-result-timestamp"></span>
-<hr>
-
 <h1>Scan from File:</h1>
 <input type="file" id="file-selector">
 <b>Detected QR code: </b>
 <span id="file-qr-result">None</span>
-
+<!-- This module is hacked from index.html from https://github.com/nimiq -->
 <script type="module">
+    // ####### Import and Setup worker #######
     import QrScanner from "/scripts/qr-scanner.min.js";
     QrScanner.WORKER_PATH = '/scripts/qr-scanner-worker.min.js';
+
+     // ####### Web Cam document tags #######
     const video = document.getElementById('qr-video');
     const camHasCamera = document.getElementById('cam-has-camera');
     const camQrResult = document.getElementById('cam-qr-result');
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
     const fileSelector = document.getElementById('file-selector');
     const fileQrResult = document.getElementById('file-qr-result');
+
+    // ######## Setup form document tags #######
+    const trackingNumber = document.getElementById('trackingnumber');
+    const aptNum = document.getElementById('aptnum');
+    const firstName = document.getElementById('firstname');
+    const lastName = document.getElementById('lastname');
+
+    // ####### This function posts the results #######
     function setResult(label, result) {
         label.textContent = result;
         camQrResultTimestamp.textContent = new Date().toString();
         label.style.color = 'teal';
         clearTimeout(label.highlightTimeout);
         label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
+        if(result) {
+            try {
+                result = JSON.parse(result);
+                trackingNumber.value = result.trackingNumber;
+                aptNum.value = result.aptNum;
+                firstName.value = result.firstName;
+                lastName.value = result.lastName;
+            } catch(e) {
+                // Update some error on page about not QR Code
+                alert("This isn't a json QR Code"); // error in the above string (in this case, yes)!
+            } finally {
+                console.log(result);
+            }
+        }
     }
+
     // ####### Web Cam Scanning #######
     QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
     const scanner = new QrScanner(video, result => setResult(camQrResult, result));
@@ -75,6 +89,7 @@
     document.getElementById('inversion-mode-select').addEventListener('change', event => {
         scanner.setInversionMode(event.target.value);
     });
+
     // ####### File Scanning #######
     fileSelector.addEventListener('change', event => {
         const file = fileSelector.files[0];
