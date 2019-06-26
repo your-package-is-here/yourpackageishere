@@ -3,6 +3,7 @@ package com.teamshort.rocks.YourPackageIsHere;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +49,7 @@ public class TenantController {
         Tenant tenant = new Tenant(firstname,lastname,email,aptnum,phonenum, building);
         tenantRepository.save(tenant);
 
-        return new RedirectView("/");
+        return new RedirectView("/tenant/all");
     }
 
     @PostMapping("/tenantedit")
@@ -62,7 +63,17 @@ public class TenantController {
         tenant.setPhonenum(phonenum);
         tenantRepository.save(tenant);
 
-        return new RedirectView("/");
+        return new RedirectView("/tenant/all");
+    }
+
+    //TODO: a little hacky, I know I should use delete mapping but wasn't working, so used a GET
+    @GetMapping("/tenant/{id}/delete")
+    public RedirectView deleteTenant(Principal p, @PathVariable String id) {
+        long ID = Long.parseLong(id);
+        Tenant tenant = tenantRepository.findById(ID);
+        tenantRepository.delete(tenant);
+
+        return new RedirectView("/tenant/all");
     }
 
 }
