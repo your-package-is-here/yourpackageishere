@@ -24,10 +24,13 @@ public class TenantController {
     @GetMapping("/tenant/all")
     public String getAllTenants(Principal principal, Model model) {
         String p = principal == null ? "" : principal.getName();
-        Building building = buildingRepository.findByUsername(principal.getName());
-        Iterable<Tenant> tenants = tenantRepository.findByBuilding(building);
+        if(principal != null){
+            Building building = buildingRepository.findByUsername(principal.getName());
+            Iterable<Tenant> tenants = tenantRepository.findByBuilding(building);
+            model.addAttribute("tenants", tenants);
+        }
+
         model.addAttribute("principal", p);
-        model.addAttribute("tenants", tenants);
         return "allTenants";
     }
 
