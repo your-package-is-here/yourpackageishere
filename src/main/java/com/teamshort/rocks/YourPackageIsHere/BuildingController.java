@@ -74,7 +74,7 @@ public class BuildingController {
     @GetMapping("/sendemail")
     public String sendEmail(Principal p, Model m){
         m.addAttribute(p);
-        return "/sendemail";
+        return "sendemail";
     }
 
     @PostMapping("/sendemail")
