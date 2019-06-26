@@ -9,4 +9,5 @@ public interface TenantRepository extends CrudRepository<Tenant, Long> {
     List<Tenant> findByAptnumIgnoreCaseContaining(String aptnum);
     Tenant findById(long id);
     Tenant findByEmail(String email);
+    List<Tenant> findByBuilding(Building building);
 }
