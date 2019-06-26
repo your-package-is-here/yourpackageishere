@@ -27,8 +27,11 @@
                 <span class="tenant" th:text="${tenant.firstname}"></span>
                 <span class="tenant" th:text="${tenant.lastname}"></span>
 
-
-                <a class="tenant-btn" th:href="'/tenant/' + ${tenant.id} + '/delete'" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></a>
+<!--                <form th:action="'/tenant/' + ${tenant.id} + '/delete'" method="POST">-->
+<!--                    <button type="submit">Delete</button>-->
+<!--                </form>-->
+<!--                <button id="tenant-delete" class="tenant-btn" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></button>-->
+                <a id="tenant-delete" class="tenant-btn" th:href="'/tenant/' + ${tenant.id}+ '/delete'" th:attr="onclick='javascript:deleteTenant(\''+ ${tenant.id} + '\')'" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></a>
                 <a class="tenant-btn" th:href="'/tenant/' + ${tenant.id}" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fas fa-user-edit"></i></a>
             </li>
         </ul>
@@ -40,7 +43,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
-    $('a').hover().tooltip();
+    $(document).ready(function() {
+        $('a').hover().tooltip();
+    });
+    function deleteTenant(id) {
+            console.log(id);
+            event.preventDefault();
+            $.ajax({
+                url: `/tenant/${id}/delete`,
+                type: 'DELETE',
+                success: function(result) {
+                    location.reload();
+                }
+            });
+
+    }
 </script>
 </body>
 </html>
