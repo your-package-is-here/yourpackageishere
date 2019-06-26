@@ -80,7 +80,7 @@ public class BuildingController {
     }
 
     @PostMapping("/sendemail")
-    public RedirectView sendEmailTenant(Principal p, Model m, String trackingnumber, String aptnum, String firstname, String lastname){
+    public void sendEmailTenant(Principal p, Model m, String trackingnumber, String aptnum, String firstname, String lastname){
         //Get the manager object
         Building manager = buildingRepository.findByUsername(p.getName());
 
@@ -94,8 +94,7 @@ public class BuildingController {
         }
         m.addAttribute("message",createMessage(isSent, !tenants.isEmpty()));
         m.addAttribute("isSent", isSent);
-        m.addAttribute("principal", p);
-        return new RedirectView("/sendemail");
+        sendEmail(p, m);
     }
 
     // This method creates the success or error message
@@ -141,7 +140,7 @@ public class BuildingController {
     // This funciton returns a List of all possible and appropriate tenants.
     public List<Tenant> getTenantHelper(String firstname, String lastname, String aptnum){
         // Gets a list of tenants ignoring case on first and last name
-        List<Tenant> tenants = tenantRepository.findByFirstnameIgnoreCaseContainingAndLastnameIgnoreCaseContaining(firstname, lastname);
+        List<Tenant> tenants = tenantRepository.findByFirstnameIgnoreCaseAndLastnameIgnoreCase(firstname, lastname);
         // If there are matches on the first and last name
         if(!tenants.isEmpty()){
             // Checks to see if the list contains the correct apt number
@@ -158,7 +157,7 @@ public class BuildingController {
             }
         }else{
             // If we found not matches based on name go solely on apt number
-            tenants = tenantRepository.findByAptnumIgnoreCaseContaining(aptnum);
+            tenants = tenantRepository.findByAptnumIgnoreCase(aptnum);
         }
         // Return whatever tenants we have acquired.
         return tenants;

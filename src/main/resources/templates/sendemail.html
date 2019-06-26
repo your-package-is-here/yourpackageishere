@@ -22,8 +22,9 @@
         margin-bottom: 16px;
     }
 </style>
-<h1>Scan from QR Code From WebCam:</h1>
-
+    <h1>Scan from QR Code From WebCam:</h1>
+    <h3 style="color:green;" th:if="${isSent}">[[${message}]]</h3>
+    <h3 style="color:red;" th:unless="${isSent}">[[${message}]]</h3>
 <div>
     <b>Device has camera: </b>
     <span id="cam-has-camera"></span>
