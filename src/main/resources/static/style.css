@@ -8,7 +8,7 @@ body {
 
 form {
     border: 1px solid #ccc !important;
-    padding: 1rem !important;
+    padding: 2rem !important;
     font-family: 'Poppins', sans-serif;
     -webkit-box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
     -moz-box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
@@ -27,6 +27,18 @@ form {
     padding-right: 3vh;
     float: right;
 }
+
+.form-signin .fa-parachute-box {
+    font-size: 80px;
+    margin-left: 16vw;
+    color: #6f42c1;
+}
+
+.page-logo {
+    font-size: 30px !important;
+}
+
+
 
 .fa-user-times {
     color: red;
@@ -88,7 +100,7 @@ form {
 }
 
 
-#register, #all-tenants {
+#register, #all-tenants, #login {
    position: relative;
    margin-top: 14vh;
 }
@@ -98,6 +110,28 @@ form {
     font-size:2.5rem;
     line-height:1;
     font-weight: 300;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.form-signin h3 {
+    font-family: 'Rubik', sans-serif;
+     margin-bottom: 3vh;
+     font-size:2rem;
+     line-height:1;
+     font-weight: 300;
+}
+
+#login {
+    padding: 1vh;
+}
+
+#login-btn {
+    margin-top: 4vh;
 }
 
 
