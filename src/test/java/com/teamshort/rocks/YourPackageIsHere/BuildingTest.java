@@ -14,10 +14,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -168,6 +168,10 @@ public class BuildingTest {
     }
 
     //  -----------  END-TO-END TESTS  ----------------  //
+// Resources:
+// https://stackoverflow.com/questions/38966718/mockmvc-status-expected200-but-was302
+// https://stackoverflow.com/questions/17972428/mock-mvc-add-request-parameter-to-test
+// https://memorynotfound.com/unit-test-spring-mvc-rest-service-junit-mockito/#unit-test-http-post
 
     @Autowired
     MockMvc mockMvc;
@@ -196,7 +200,10 @@ public class BuildingTest {
                         .andDo(print())
                 .andExpect(header().string("location", containsString("/")));
 
-        assertEquals(building.name,buildingRepository.findByUsername("bloop").getName());
+        Building buildingRes = buildingRepository.findByUsername("bloop");
+        assertEquals(building.name,buildingRes.getName());
+
+        mockMvc.perform(get("/login")).andExpect(content().string(containsString("Username:")));
 
     }
 
