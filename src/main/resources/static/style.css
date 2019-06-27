@@ -29,7 +29,7 @@ form {
 }
 
 .tenant-btn {
-    padding-right: 3vh;
+    padding-right: 1vh;
     float: right;
 }
 
@@ -75,27 +75,23 @@ form {
 #tenant-header-name {
     font-size: 18px;
     letter-spacing: 0.1em;
-    margin-left: 27vw;
+    /*margin-left: 27vw;*/
     font-weight: 500;
 }
 
 #tenant-header-apt {
     font-size: 18px;
     letter-spacing: 0.1em;
-    margin-left: 1.3vw;
+    /*margin-left: 1.3vw;*/
     font-weight: 500;
 }
 
 #tenant-header-action {
     font-size: 18px;
     letter-spacing: 0.1em;
-    margin-left: 32vw;
     font-weight: 500;
 }
 
-#tenant-apt {
-    padding-right: 28.5vw;
-}
 
 .camera-border{
  position: relative;
@@ -234,18 +230,6 @@ form {
             width: 100%;
         }
 
-        #tenant-header-name {
-            margin-left: 15vw;
-        }
-
-        #tenant-header-action {
-            margin-left: 28vw;
-        }
-
-        #tenant-apt {
-            padding-right: 15.5vw;
-        }
-
         .tenant-btn {
             padding-right: 0.5em;
         }
@@ -263,13 +247,6 @@ form {
 }
 
 @media only screen and (min-width : 644px) {
-    #tenant-header-name {
-        margin-left: 16vw;
-    }
-
-    #tenant-header-action {
-        margin-left: 24vw;
-    }
 
     #email-status, .card {
         width: 30rem !important;
@@ -289,22 +266,9 @@ form {
                 margin-left: 0vh;
                 margin-top: 28vh;
             }
-            .tenantEdit button, .tenantCreate button {
+            .tenantCreate button {
                 margin-left: 38vw;
             }
-
-            #tenant-header-name {
-                margin-left: 20vw;
-            }
-
-            #tenant-header-action {
-                margin-left: 38vw;
-            }
-
-            #tenant-apt {
-                padding-right: 24.5vw;
-            }
-
             .form-signin .fa-parachute-box {
                   margin-left: 18vw;
             }
@@ -319,26 +283,22 @@ form {
              }
 }
 
+@media only screen and (max-width : 1000px) {
+     *,
+     *::before,
+     *::after {
+       box-sizing: content-box !important; // 1
+     }
+}
+
 @media only screen and (min-width : 1000px) {
      #email-status, .card {
           width: 22rem !important;
           margin:0;
      }
 
-
-     #tenant-header-action {
-          margin-left: 34vw;
-     }
-
      #tenant-header-apt {
         margin-left: 0;
-     }
-     #tenant-header-name {
-         margin-left: 20vw;
-     }
-
-     #tenant-apt {
-         padding-right: 20.5vw;
      }
 
      .form-signin .fa-parachute-box {
