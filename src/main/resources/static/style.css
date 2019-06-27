@@ -15,45 +15,11 @@ form {
     box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
 }
 
-h3 {
+#about .card {
+    margin-bottom: 6vh;
+    margin-left: 8vh;
+    min-height: 10vh;
 }
-
-.divAboutUsMain {
-
-    /*
-    display:inline-block;
-    position: absolute;
-    top:0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-
-	margin: auto;
-	*/
-}
-
-.divAboutUs {
-   display: inline-block;
-   float: left;
-   width: 30vw;
-   height: 55vw;
-   padding-right: 5vw;
-}
-
-.divAboutUs a {
-    float: right;
-    margin-right: 1vw;
-}
-
-.divAboutUs a img {
-    width:28px
-}
-
-.profilePic {
-    height: 20vw;
-    border-radius: 3vw;
-}
-
 .mt {
     margin-top: 8vh;
 }
@@ -77,7 +43,14 @@ h3 {
     font-size: 26px !important;
 }
 
+.tenantEdit, .tenantCreate {
+    width:50%;
+    margin:10vh auto;
+}
 
+.tenantEdit h3, .tenant h3 {
+    margin-top: 6vh;
+}
 
 .fa-user-times {
     color: red;
@@ -168,11 +141,11 @@ h3 {
 }
 
 
-#register, #all-tenants, #login, #scan-package {
+#register, #all-tenants, #login, #scan-package, #about {
    position: relative;
    margin-top: 14vh;
 }
-#register h3, #all-tenants h3 {
+#register h3, #all-tenants h3, #about h3 {
     font-family: 'Rubik', sans-serif;
     margin-bottom: 3vh;
     font-size:2.5rem;
@@ -239,4 +212,140 @@ h3 {
 
 #landing-content p {
     letter-spacing: 0.1rem;
+}
+
+#scan-results label, #scan-results input {
+    margin-left: 6vw !important;
+}
+
+
+@media only screen and (min-width : 475px) {
+     #landing-content {
+            margin-left: -1vh;
+        }
+
+        .form-signin .fa-parachute-box {
+            margin-left: 29vw;
+        }
+        .tenantEdit button, .tenantCreate button {
+            width: auto;
+        }
+        .tenantEdit, .tenantCreate {
+            width: 100%;
+        }
+
+        #tenant-header-name {
+            margin-left: 15vw;
+        }
+
+        #tenant-header-action {
+            margin-left: 28vw;
+        }
+
+        #tenant-apt {
+            padding-right: 15.5vw;
+        }
+
+        .tenant-btn {
+            padding-right: 0.5em;
+        }
+
+        #scan-results {
+            margin-left: 0vw;
+        }
+        #email-status, .card {
+            width: 28rem !important;
+        }
+
+        #scan-results label, #scan-results input {
+            margin-left: 0vw !important;
+        }
+}
+
+@media only screen and (min-width : 644px) {
+    #tenant-header-name {
+        margin-left: 16vw;
+    }
+
+    #tenant-header-action {
+        margin-left: 24vw;
+    }
+
+    #email-status, .card {
+        width: 30rem !important;
+        margin: 0;
+    }
+    .form-signin .fa-parachute-box {
+         margin-left: 20vw;
+     }
+
+    #scan-results label, #scan-results input {
+        margin-left: 0vw !important;
+    }
+}
+
+@media only screen and (min-width : 768px) {
+            #landing-content {
+                margin-left: 0vh;
+                margin-top: 28vh;
+            }
+            .tenantEdit button, .tenantCreate button {
+                margin-left: 38vw;
+            }
+
+            #tenant-header-name {
+                margin-left: 20vw;
+            }
+
+            #tenant-header-action {
+                margin-left: 38vw;
+            }
+
+            #tenant-apt {
+                padding-right: 24.5vw;
+            }
+
+            .form-signin .fa-parachute-box {
+                  margin-left: 18vw;
+            }
+
+             #email-status, .card {
+                width: 25rem !important;
+                margin:0;
+             }
+
+             #scan-results label, #scan-results input {
+                 margin-left: 0vw !important;
+             }
+}
+
+@media only screen and (min-width : 1000px) {
+     #email-status, .card {
+          width: 22rem !important;
+          margin:0;
+     }
+
+
+     #tenant-header-action {
+          margin-left: 34vw;
+     }
+
+     #tenant-header-apt {
+        margin-left: 0;
+     }
+     #tenant-header-name {
+         margin-left: 20vw;
+     }
+
+     #tenant-apt {
+         padding-right: 20.5vw;
+     }
+
+     .form-signin .fa-parachute-box {
+         margin-left: 12.5vw;
+      }
+
+     .tenantEdit button, .tenantCreate button {
+         margin-left: 0vw;
+     }
 }

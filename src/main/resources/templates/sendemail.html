@@ -16,7 +16,7 @@
 <div class="container" id="scan-package">
     <h3>Scan Package:</h3>
     <div class="row">
-        <div class="col-sm">
+        <div class="col-sm col-md">
             <!--https://github.com/nimiq/qr-scanner-->
             <div id="email-status"class="card bg-light mb-3" style="width: 18rem;">
                 <div class="card-header">Message Status:</div>
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm">
+        <div class="col-sm col-md mr-3 ml-3">
             <h4>Scan QR code:  <i id="cam-has-camera" class="fas fa-camera"></i></h4>
             <div class="camera-border">
                 <video class="camera" muted playsinline id="qr-video" width="480px"></video>
@@ -92,7 +92,7 @@
         scanner.setInversionMode(event.target.value);
     });
 </script>
-        <div class="col-sm" id="scan-results">
+        <div class="col-sm col-md" id="scan-results">
             <form method="POST" action="/sendemail">
                 <div class="form-row">
                     <div class="form-group"><label for="trackingnumber">Tracking number</label><input name="trackingnumber" id="trackingnumber" class="form-control"/></div>

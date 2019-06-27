@@ -7,20 +7,29 @@
 <body>
 
 
-<div class="tenantEdit" th:fragement="tenantEdit">
-
-    <form th:method="PUT" action="/tenantedit">
+<div class="tenantEdit mt" th:fragement="tenantEdit">
+    <h3 class="text-center">Edit Tenant</h3>
+    <form th:method="PUT" action="/tenantedit" class="tenant-form">
         <!--    String firstname, String lastname, String email, String aptnum, String phonenum, Building building-->
-        <input type="hidden" th:value="${tenant.id}" name="id" id="id" />
-        <p><label for="firstname">First Name</label><input th:value="${tenant.firstname}" name="firstname" id="firstname"/></p>
-        <p><label for="lastname">Last Name</label><input th:value="${tenant.lastname}" name="lastname" id="lastname" /></p>
-        <p><label for="email">Email</label><input type="email" th:value="${tenant.email}" name="email" id="email"/></p>
-        <p><label for="aptnum">Apartment Number</label><input th:value="${tenant.aptnum}" name="aptnum" id="aptnum" /></p>
-        <p><label for="phonenum">Phone Number</label><input th:value="${tenant.phonenum}" name="phonenum" id="phonenum" /></p>
-
-        <input type="submit" />
-
+            <div class="form-group">
+                <label for="firstname">First Name</label><input th:value="${tenant.firstname}" name="firstname" id="firstname" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Last Name</label><input th:value="${tenant.lastname}" name="lastname" id="lastname" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label><input th:value="${tenant.email}" type="email" name="email" id="email" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label for="aptnum">Apartment Number</label><input th:value="${tenant.aptnum}" name="aptnum" id="aptnum" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="phonenum">Phone Number</label><input th:value="${tenant.phonenum}" name="phonenum" id="phonenum" class="form-control" required/>
+            </div>
+        <button type="submit" class="btn btn-info">Submit</button>
     </form>
+
+
 
 </div>
 
