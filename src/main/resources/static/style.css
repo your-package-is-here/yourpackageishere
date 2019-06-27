@@ -16,7 +16,37 @@ form {
 }
 
 h3 {
-    padding-left: 20px;
+}
+
+.divAboutUsMain {
+
+    /*
+    display:inline-block;
+    position: absolute;
+    top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	margin: auto;
+	*/
+}
+
+.divAboutUs {
+   display: inline-block;
+   float: left;
+   width: 30vw;
+   height: 55vw;
+   padding-right: 5vw;
+}
+
+.divAboutUs a {
+    float: right;
+    margin-right: 1vw;
+}
+
+.divAboutUs a img {
+    width:28px
 }
 
 .profilePic {
