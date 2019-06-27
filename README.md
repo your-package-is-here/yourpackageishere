@@ -47,6 +47,7 @@ As a developers, leveraging delivery APIs to scan QR code or bar code to get the
    
    
 ### Starter Guide
+
 - The Building manager will first visit the website and create an account for their building. 
 - They will then add all the tenants information in their account.
 - After a package arrives, the building manager can go to 'scan package' tab in 'building' which will open a webcam. If using mobile devices it will 
@@ -56,9 +57,34 @@ open the mobile camera.
 - After the submit button is clicked there will be a notification which will inform the user if the email has been sent. If there is no tenant by that name it will send an email to all of the tenants in that apartment. 
 - If there are no matches it will give a message saying that there were no tenants found.
 
-
 #### Deployed Link: [yourpackageishere.com]()
 
+### To run locally:
+
+1. Clone down the repository on your local machine with command:
+
+           git clone https://github.com/teamshort/yourpackageishere.git
+
+2. Make sure you have Postgres installed in your local machine. You must first create a database named 'yourpackageishere' in psql with command:
+            
+           CREATE DATABASE yourpackageishere;
+           
+3. On your application.properties, make sure postgres is set up on with your individual user environment variables
+
+        spring.datasource.url=${DATABASE_URL}
+        spring.datasource.username=${DATABASE_USERNAME}
+        spring.datasource.password=${DATABASE_PASSWORD}
+        spring.jpa.hibernate.ddl-auto=update
+        spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+        server.port=5000
+
+4. Run the application through your IDE or use the terminal command:
+        
+        ./gradlew bootrun
+
+5. You will now be able to run the application on your local machine with URL:
+
+        http://localhost:5000
 
 ### Entities
 - [Building](./src/main/java/com/teamshort/rocks/YourPackageIsHere/Building.java)
