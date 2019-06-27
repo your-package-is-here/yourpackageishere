@@ -17,9 +17,6 @@
 <div th:replace="fragments/header :: header">...</div>
 
 <div class="container mt">
-<h3>Tenant</h3>
-
-
     <span th:if="${tenant == null}">
         <div th:replace="fragments/tenantCreate :: .tenantCreate">...</div>
     </span>
