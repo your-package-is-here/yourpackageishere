@@ -85,10 +85,6 @@ form {
     padding-right: 28.5vw;
 }
 
-#scan-package {
-    margin-top: 10vh;
-}
-
 .camera-border{
  position: relative;
      height: 290px;
@@ -133,7 +129,7 @@ form {
 }
 
 
-#register, #all-tenants, #login {
+#register, #all-tenants, #login, #scan-package {
    position: relative;
    margin-top: 14vh;
 }
