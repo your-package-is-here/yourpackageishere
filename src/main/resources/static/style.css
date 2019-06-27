@@ -63,7 +63,7 @@ h3 {
 }
 
 .tenant-btn {
-    padding-right: 3vh;
+    padding-right: 1vh;
     float: right;
 }
 
@@ -102,26 +102,26 @@ h3 {
 #tenant-header-name {
     font-size: 18px;
     letter-spacing: 0.1em;
-    margin-left: 27vw;
+    /*margin-left: 27vw;*/
     font-weight: 500;
 }
 
 #tenant-header-apt {
     font-size: 18px;
     letter-spacing: 0.1em;
-    margin-left: 1.3vw;
+    /*margin-left: 1.3vw;*/
     font-weight: 500;
 }
 
 #tenant-header-action {
     font-size: 18px;
     letter-spacing: 0.1em;
-    margin-left: 32vw;
+    /*margin-left: 32vw;*/
     font-weight: 500;
 }
 
 #tenant-apt {
-    padding-right: 28.5vw;
+    /*padding-right: 28.5vw;*/
 }
 
 .camera-border{
