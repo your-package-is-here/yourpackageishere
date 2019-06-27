@@ -77,6 +77,10 @@ open the mobile camera.
         spring.jpa.hibernate.ddl-auto=update
         spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
         server.port=5000
+    
+    Also, include a SendGrid API Key on your environment variables with variable name:
+     
+        SENDGRID_API_KEY
 
 4. Run the application through your IDE or use the terminal command:
         
