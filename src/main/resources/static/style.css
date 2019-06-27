@@ -50,6 +50,10 @@ form {
     font-size: 18px;
 }
 
+.fa-camera {
+    display: none;
+}
+
 .tenant {
     font-size: 18px;
     letter-spacing: 0.1em;
@@ -81,12 +85,41 @@ form {
     padding-right: 28.5vw;
 }
 
+#scan-package {
+    margin-top: 10vh;
+}
+
+.camera-border{
+ position: relative;
+     height: 290px;
+     overflow: hidden;
+}
+.camera {
+     position: absolute;
+     top: -99px;
+     height: 480px;
+}
+
+#qr-results, #cam-qr-result {
+    max-width: 380px;
+}
+
+#email-status {
+    margin-top: 4vh;
+}
 /* Need Media query */
 .fa-user-plus {
     position: absolute;
     top: 500px;
     left: 73vw;
     font-size: 35px;
+}
+
+#scan-results {
+    margin-left: 6vw;
+}
+.hide {
+    display:none;
 }
 
 .header-bar {

@@ -2,46 +2,54 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Send Email</title>
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scan Package</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/style.css" rel="stylesheet" type="text/css" />
+    <link href="/reset.css" rel="stylesheet" type="text/css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet" type="text/css" />
+    <script src="https://kit.fontawesome.com/c36d981c19.js"></script>
 </head>
 <body>
-<!--https://github.com/nimiq/qr-scanner-->
-<style>
-    canvas {
-        display: none;
-    }
-    hr {
-        margin-top: 32px;
-    }
-    input[type="file"] {
-        display: block;
-        margin-bottom: 16px;
-    }
-    div {
-        margin-bottom: 16px;
-    }
-</style>
-    <h1>Scan from QR Code From WebCam:</h1>
-    <h3 style="color:green;" th:if="${isSent}">[[${message}]]</h3>
-    <h3 style="color:red;" th:unless="${isSent}">[[${message}]]</h3>
-<div>
-    <b>Device has camera: </b>
-    <span id="cam-has-camera"></span>
-    <br>
-    <video muted playsinline id="qr-video" width="400px"></video>
-</div>
-<b>Detected QR code: </b>
-<span id="cam-qr-result">None</span>
-<br>
-<b>Last detected at: </b>
-<span id="cam-qr-result-timestamp"></span>
-<h1>Scan from File:</h1>
-<input type="file" id="file-selector">
-<b>Detected QR code: </b>
-<span id="file-qr-result">None</span>
-<!-- This module is hacked from index.html from https://github.com/nimiq -->
-<script type="module">
+<div th:replace="fragments/header :: header">...</div>
+<div class="container" id="scan-package">
+    <h3>Scan Package:</h3>
+    <div class="row">
+        <div class="col-sm">
+            <!--https://github.com/nimiq/qr-scanner-->
+            <div id="email-status"class="card bg-light mb-3" style="width: 18rem;">
+                <div class="card-header">Message Status:</div>
+                <div class="card-body">
+                    <p style="color:green;" th:if="${isSent}">[[${message}]]</p>
+                    <p style="color:red;" th:unless="${isSent}">[[${message}]]</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <h4>Scan QR code:  <i id="cam-has-camera" class="fas fa-camera"></i></h4>
+            <div class="camera-border">
+                <video class="camera" muted playsinline id="qr-video" width="480px"></video>
+            </div>
+            <div class="card bg-light mb-3" style="width: 22rem;">
+                <div class="card-header">Detected QR code:</div>
+                <div class="card-body">
+                    <p class="card-text qr-found" id="cam-qr-result"></p>
+                </div>
+            </div>
+            <p class="hide">Last detected at: </p>
+            <p class="hide" id="cam-qr-result-timestamp"></p>
+            <h4>Scan from File:<i class="fas fa-file-image"></i></h4>
+            <input type="file" id="file-selector">
+            <div class="card bg-light mb-3" style="width: 22rem;">
+                <div class="card-header">Detected QR code:</div>
+                <div class="card-body">
+                    <p class="card-text qr-found" id="file-qr-result"></p>
+                </div>
+            </div>
+        </div>
+        <!-- This module is hacked from index.html from https://github.com/nimiq -->
+        <script type="module">
     // ####### Import and Setup worker #######
     import QrScanner from "/scripts/qr-scanner.min.js";
     QrScanner.WORKER_PATH = '/scripts/qr-scanner-worker.min.js';
@@ -84,7 +92,7 @@
     }
 
     // ####### Web Cam Scanning #######
-    QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
+    QrScanner.hasCamera().then(hasCamera => hasCamera);
     const scanner = new QrScanner(video, result => setResult(camQrResult, result));
     scanner.start();
     document.getElementById('inversion-mode-select').addEventListener('change', event => {
@@ -102,13 +110,20 @@
             .catch(e => setResult(fileQrResult, e || 'No QR code found.'));
     });
 </script>
-    <form method="POST" action="/sendemail">
-        <p><label for="trackingnumber">Tracking number</label><input name="trackingnumber" id="trackingnumber"/></p>
-        <p><label for="aptnum">Apartment number</label><input name="aptnum" id="aptnum" /></p>
-        <p><label for="firstname">First Name</label><input name="firstname" id="firstname"/></p>
-        <p><label for="lastname">Last Name</label><input name="lastname" id="lastname"/></p>
-        <input type="submit" />
-    </form>
+        <div class="col-sm" id="scan-results">
+            <form method="POST" action="/sendemail">
+                <div class="form-row">
+                    <div class="form-group"><label for="trackingnumber">Tracking number</label><input name="trackingnumber" id="trackingnumber" class="form-control"/></div>
+                    <div class="form-group"><label for="aptnum">Apartment number</label><input name="aptnum" id="aptnum" class="form-control" /></div>
+                    <div class="form-group"><label for="firstname">First Name</label><input name="firstname" id="firstname" class="form-control"/></div>
+                    <div class="form-group"><label for="lastname">Last Name</label><input name="lastname" id="lastname" class="form-control"/></div>
+                </div>
+
+                <button type="submit" class="btn btn-success" >Message</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

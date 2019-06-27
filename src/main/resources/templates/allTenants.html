@@ -26,11 +26,6 @@
                 <span class="tenant" id="tenant-apt" th:text="${tenant.aptnum}"></span>
                 <span class="tenant" th:text="${tenant.firstname}"></span>
                 <span class="tenant" th:text="${tenant.lastname}"></span>
-
-<!--                <form th:action="'/tenant/' + ${tenant.id} + '/delete'" method="POST">-->
-<!--                    <button type="submit">Delete</button>-->
-<!--                </form>-->
-<!--                <button id="tenant-delete" class="tenant-btn" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></button>-->
                 <a id="tenant-delete" class="tenant-btn" th:href="'/tenant/' + ${tenant.id}+ '/delete'" th:attr="onclick='javascript:deleteTenant(\''+ ${tenant.id} + '\')'" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></a>
                 <a class="tenant-btn" th:href="'/tenant/' + ${tenant.id}" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fas fa-user-edit"></i></a>
             </li>
