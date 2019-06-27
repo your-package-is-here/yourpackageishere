@@ -20,7 +20,7 @@
             <!--https://github.com/nimiq/qr-scanner-->
             <div id="email-status"class="card bg-light mb-3" style="width: 18rem;">
                 <div class="card-header">Message Status:</div>
-                <div class="card-body">
+                <div id="message" class="card-body">
                     <p style="color:green;" th:if="${isSent}">[[${message}]]</p>
                     <p style="color:red;" th:unless="${isSent}">[[${message}]]</p>
                 </div>
@@ -39,15 +39,6 @@
             </div>
             <p class="hide">Last detected at: </p>
             <p class="hide" id="cam-qr-result-timestamp"></p>
-            <h4>Scan from File:<i class="fas fa-file-image"></i></h4>
-            <input type="file" id="file-selector">
-            <br>
-            <div class="card bg-light mb-3" style="width: 22rem;">
-                <div class="card-header">Detected QR code:</div>
-                <div class="card-body">
-                    <p class="card-text qr-found" id="file-qr-result"></p>
-                </div>
-            </div>
         </div>
         <!-- This module is hacked from index.html from https://github.com/nimiq -->
         <script type="module">
@@ -74,6 +65,7 @@
         label.textContent = result;
         camQrResultTimestamp.textContent = new Date().toString();
         label.style.color = 'teal';
+        document.getElementById('message').innerHTML = "";
         clearTimeout(label.highlightTimeout);
         label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
         if(result) {
@@ -98,17 +90,6 @@
     scanner.start();
     document.getElementById('inversion-mode-select').addEventListener('change', event => {
         scanner.setInversionMode(event.target.value);
-    });
-
-    // ####### File Scanning #######
-    fileSelector.addEventListener('change', event => {
-        const file = fileSelector.files[0];
-        if (!file) {
-            return;
-        }
-        QrScanner.scanImage(file)
-            .then(result => setResult(fileQrResult, result))
-            .catch(e => setResult(fileQrResult, e || 'No QR code found.'));
     });
 </script>
         <div class="col-sm" id="scan-results">
