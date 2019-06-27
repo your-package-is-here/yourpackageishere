@@ -19,9 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
+
 public class BuildingTest {
 
     @Test
@@ -165,55 +163,6 @@ public class BuildingTest {
         Building building = initialize();
         building.setPassword("1234");
         assertEquals("1234", building.getPassword());
-    }
-
-    //  -----------  END-TO-END TESTS  ----------------  //
-// Resources:
-// https://stackoverflow.com/questions/38966718/mockmvc-status-expected200-but-was302
-// https://stackoverflow.com/questions/17972428/mock-mvc-add-request-parameter-to-test
-// https://memorynotfound.com/unit-test-spring-mvc-rest-service-junit-mockito/#unit-test-http-post
-
-    @Autowired
-    MockMvc mockMvc;
-
-    @Autowired
-    BuildingRepository buildingRepository;
-
-    @Test
-    public void testBuildingCRUD() throws Exception {
-        Building building = initialize();
-
-        mockMvc.perform(
-                post("/buildingcreate")
-                        .param("username", "bloop")
-                        .param("name", "Bloop Building")
-                        .param("streetaddress", "1 Bloop Ave")
-                        .param("city", "Bloop City")
-                        .param("state", "WA")
-                        .param("zip",  "90210")
-                        .param("email", "bloop@bloop.com")
-                        .param("password", "bloop123"))
-                        .andDo(print())
-                .andExpect(header().string("location", containsString("/")));
-
-        Building buildingResCreate = buildingRepository.findByUsername("bloop");
-
-        assertEquals(building.name,buildingResCreate.getName()); // check Creation and Read data
-
-        //UPDATE instance' name
-        buildingResCreate.setName("New Name");
-        buildingRepository.save(buildingResCreate);
-
-        Building buildingResUpdate = buildingRepository.findByUsername("bloop");
-
-
-        assertEquals("New Name",buildingResUpdate.getName()); // check Update and Read data
-
-
-        //DELETE created test building instance from DB table
-        buildingRepository.delete(buildingResUpdate);
-        assertNull(buildingRepository.findByUsername("bloop"));
-
     }
 
 }//end of building test class
