@@ -15,6 +15,11 @@ form {
     box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
 }
 
+.profilePic {
+    height: 20vw;
+    border-radius: 3vw;
+}
+
 .mt {
     margin-top: 8vh;
 }
