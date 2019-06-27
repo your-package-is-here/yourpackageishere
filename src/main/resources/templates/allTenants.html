@@ -18,16 +18,32 @@
     <div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <span id="tenant-header-apt">Apt. #</span>
-                <span id="tenant-header-name">Name</span>
-                <span id="tenant-header-action">Action</span>
+                <div class="tenant-parent" style="display: flex; align-items: flex-start; align-content: stretch; flex-wrap: nowrap; height: 100%; justify-content: space-between">
+                    <div>
+                        <span id="tenant-header-apt">Apt. #</span>
+                    </div>
+                    <div>
+                        <span id="tenant-header-name">Name</span>
+                    </div>
+                    <div>
+                        <span id="tenant-header-action">Action</span>
+                    </div>
+                </div>
             </li>
             <li class="list-group-item" th:each="tenant : ${tenants}">
-                <span class="tenant" id="tenant-apt" th:text="${tenant.aptnum}"></span>
-                <span class="tenant" th:text="${tenant.firstname}"></span>
-                <span class="tenant" th:text="${tenant.lastname}"></span>
-                <a id="tenant-delete" class="tenant-btn" th:href="'/tenant/' + ${tenant.id}+ '/delete'" th:attr="onclick='javascript:deleteTenant(\''+ ${tenant.id} + '\')'" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></a>
-                <a class="tenant-btn" th:href="'/tenant/' + ${tenant.id}" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fas fa-user-edit"></i></a>
+                <div class="tenant-list-parent" style="display: flex; align-items: flex-start; align-content: stretch; flex-wrap: nowrap; height: 100%; justify-content: space-between">
+                    <div>
+                        <span class="tenant" id="tenant-apt" th:text="${tenant.aptnum}"></span>
+                    </div>
+                    <div>
+                        <span class="tenant" th:text="${tenant.firstname}"></span>
+                        <span class="tenant" th:text="${tenant.lastname}"></span>
+                    </div>
+                    <div>
+                        <a id="tenant-delete" class="tenant-btn" th:href="'/tenant/' + ${tenant.id}+ '/delete'" th:attr="onclick='javascript:deleteTenant(\''+ ${tenant.id} + '\')'" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-user-times"></i></a>
+                        <a class="tenant-btn" th:href="'/tenant/' + ${tenant.id}" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fas fa-user-edit"></i></a>
+                    </div>
+                </div>
             </li>
         </ul>
         <br>
