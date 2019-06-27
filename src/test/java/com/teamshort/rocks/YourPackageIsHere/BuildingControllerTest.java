@@ -19,8 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -53,6 +52,9 @@ public class BuildingControllerTest {
 
     @Autowired
     BuildingRepository buildingRepository;
+
+    @Autowired
+    TenantRepository tenantRepository;
 
     @Autowired
     WebApplicationContext context;
@@ -96,17 +98,48 @@ public class BuildingControllerTest {
     @WithMockUser
     @Test
     public void testGetSendEmail() throws Exception {
-        Building building = initialize();
         mockMvc.perform(
                 get("/sendemail").with(testUser())).andExpect(content().string(containsString("Scan Package")));
     }
 
+    @WithMockUser
     @Test
-    public void testSendEmailHelper() throws Exception {
+    public void testSendEmailHelperTenantNotFound() throws Exception {
+        // Create building entity
         mockMvc.perform(
-                post("")
-        )
+                post("/buildingcreate")
+                        .param("username", "bloo")
+                        .param("name", "Bloop")
+                        .param("streetaddress", "1 Bloop Ave")
+                        .param("city", "Bloop City")
+                        .param("state", "WA")
+                        .param("zip",  "90210")
+                        .param("email", "bloo@bloo.com")
+                        .param("password", "bloop123"))
+                .andDo(print())
+                .andExpect(header().string("location", containsString("/")));
 
+        // Create tenant entity
+        mockMvc.perform(
+                post("/tenantcreate")
+                        .with(testUser())
+                        .param("firstname", "fake")
+                        .param("lastname", "fakeer")
+                        .param("aptnum", "232")
+                        .param("phonenum", "111-111-1111")
+                        .param("email", "fake@fake.com"))
+                .andDo(print())
+                .andExpect(header().string("location", containsString("/tenant/all")));
+
+       Building testBuilding = buildingRepository.findByUsername("bloo");
+       Tenant testTenant =  tenantRepository.findByEmail("fake@fake.com");
+
+       // Able to send emails
+       assertFalse(BuildingController.sendEmailHelper(testBuilding, testTenant,"1243123dsadasdasdasdsf"));
+
+        // Delete Entities
+        tenantRepository.delete(testTenant);
+        buildingRepository.delete(testBuilding);
     }
 
     @Test
