@@ -15,45 +15,11 @@ form {
     box-shadow: 0 8px 6px -6px rgba(255,255,255, 0.5);
 }
 
-h3 {
+#about .card {
+    margin-bottom: 6vh;
+    margin-left: 8vh;
+    min-height: 10vh;
 }
-
-.divAboutUsMain {
-
-    /*
-    display:inline-block;
-    position: absolute;
-    top:0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-
-	margin: auto;
-	*/
-}
-
-.divAboutUs {
-   display: inline-block;
-   float: left;
-   width: 30vw;
-   height: 55vw;
-   padding-right: 5vw;
-}
-
-.divAboutUs a {
-    float: right;
-    margin-right: 1vw;
-}
-
-.divAboutUs a img {
-    width:28px
-}
-
-.profilePic {
-    height: 20vw;
-    border-radius: 3vw;
-}
-
 .mt {
     margin-top: 8vh;
 }
@@ -175,11 +141,11 @@ h3 {
 }
 
 
-#register, #all-tenants, #login, #scan-package {
+#register, #all-tenants, #login, #scan-package, #about {
    position: relative;
    margin-top: 14vh;
 }
-#register h3, #all-tenants h3 {
+#register h3, #all-tenants h3, #about h3 {
     font-family: 'Rubik', sans-serif;
     margin-bottom: 3vh;
     font-size:2.5rem;

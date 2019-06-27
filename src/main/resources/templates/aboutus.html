@@ -14,82 +14,94 @@
 <body>
 <div th:replace="fragments/header :: header">...</div>
 <!-- Put everything in this div -->
-<div class="container mt">
+<div class="container mt" id="about">
     <h3>About Us</h3>
-    <div class="divAboutUsMain">
-        <div class="divAboutUs">
-            <img class="profilePic" src="../assets/devon.png" alt="devon" title="Devon Hackley">
-            <h4>Devon Hackley</h4>
-            <a href="https://github.com/devonhackley">
-                <img src="../assets/github-icon.png" alt="github icon">
-            </a>
-            <a href="https://www.linkedin.com/in/devon-hackley/">
-                <img src="../assets/linkedin.png" alt="linkedin icon">
-            </a>
-            <p>"Hello, I am an Air Force Veteran turned coder.
-                I have spent the past year working as a developer and I'm currently a Software Development Engineering Apprentice at Amazon.
-                I have been programming for several years now and after continually facing those challenges and triumphs,
-                the one thing that was most apparent to me was that I was how growing after those experiences.
-                Not just in skills but in other aspects as well. That is something that has resonated with me about Technology,
-                is the fact that it's constantly encouraging and innovating growth.
-                I'm personally excited to continue my growth at Amazon by building applications that not only,
-                reach users and inspire them to grow, but to also continue the growth and impact that technology has in our everyday lives and future."
-            </p>
+    <div class="row" id="about-first-row">
+        <div class="col-sm-6">
+            <div class="card" style="width: 24rem;">
+                <img class="card-img-top" src="../assets/kush.jpg" alt="kush" title="Kush Shrestha">
+                <div class="card-body">
+                    <h5 class="card-title">Kush Shrestha</h5>
+                    <p>"My name is Kush Shrestha. I am a motivated self-starter who can successfully manage multiple projects and deadlines.
+                        I have bachelor’s degree in Mechanical Engineering from University of North Texas in Denton, Texas.
+                        I recently transition from military. I wanted to work in IT field while transitioning from military.
+                        I found out about this AWS Software Development Engineer apprenticeship program and it was exactly what I wanted to do.
+                        As a part of apprenticeship program, I am taking a course in Code Fellows to become a full stack Software Developer. "
+                    </p>
+                    <a href="https://github.com/kushshrestha01">
+                        <img src="../assets/github-icon.png" alt="github icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/kush-shrestha-me/">
+                        <img src="../assets/linkedin.png" alt="linkedin icon">
+                    </a>
+                </div>
+            </div>
         </div>
-
-        <div class="divAboutUs">
-            <img class="profilePic" src="../assets/reina.jpg" alt="reina" title="Reina Vencer">
-            <h4>Reina Vencer</h4>
-            <a href="https://github.com/river-ceanne">
-                <img src="../assets/github-icon.png" alt="github icon">
-            </a>
-            <a href="https://www.linkedin.com/in/reina-vencer/">
-                <img src="../assets/linkedin.png" alt="linkedin icon">
-            </a>
-            <p>"I am a Software Developer working with AWS as an SDE Apprentice. I am from Long Island, New York.
-                I graduated with a Bachelor's in Computer Programming & Information Systems in SUNY Farmingdale State College.
-                I studied art and biology prior to finding my interest in technology.
-                I discovered my passion for coding in college after taking the programming 1 course they have as an elective when I was a Bioscience major.
-                What I like about programming is that it was both technical and artistic at the same time.
-                Some fun facts about me would be my love for animals, dogs especially."
-            </p>
-        </div>
-
-        <div class="divAboutUs">
-            <img class="profilePic" src="../assets/kush.jpg" alt="kush" title="Kush Shrestha">
-            <h4>Kush Shrestha</h4>
-            <a href="https://github.com/kushshrestha01">
-                <img src="../assets/github-icon.png" alt="github icon">
-            </a>
-            <a href="https://www.linkedin.com/in/kush-shrestha-me/">
-                <img src="../assets/linkedin.png" alt="linkedin icon">
-            </a>
-            <p>"My name is Kush Shrestha. I am a motivated self-starter who can successfully manage multiple projects and deadlines.
-                I have bachelor’s degree in Mechanical Engineering from University of North Texas in Denton, Texas.
-                I recently transition from military. I wanted to work in IT field while transitioning from military.
-                I found out about this AWS Software Development Engineer apprenticeship program and it was exactly what I wanted to do.
-                As a part of apprenticeship program, I am taking a course in Code Fellows to become a full stack Software Developer. "
-            </p>
-        </div>
-
-        <div class="divAboutUs">
-            <img class="profilePic" src="../assets/john.jpg" alt="john" title="John Winters">
-            <h4>John Winters</h4>
-            <a href="https://github.com/thatsjustjohn">
-                <img src="../assets/github-icon.png" alt="github icon">
-            </a>
-            <a href="https://www.linkedin.com/in/john-winters/">
-                <img src="../assets/linkedin.png" alt="linkedin icon">
-            </a>
-            <p>Hi, I'm John! I'm a full-time dog dad that does software development on the side.
-                I enjoy working out, playing video games, dog walks, and good mystery thriller movies
-                ( 'Lucky Number Slevin' && 'Kiss Kiss Bang Bang').
-            </p>
+        <div class="col-sm-6">
+            <div class="card" style="width: 24rem;">
+                <img class="card-img-top" src="../assets/john.jpg" alt="john" title="John Winters">
+                <div class="card-body">
+                    <h5 class="card-title">John Winters</h5>
+                    <p>Hi, I'm John! I'm a full-time dog dad that does software development on the side.
+                        I enjoy working out, playing video games, dog walks, and good mystery thriller movies
+                        ( 'Lucky Number Slevin' && 'Kiss Kiss Bang Bang').
+                    </p>
+                    <a href="https://github.com/thatsjustjohn">
+                        <img src="../assets/github-icon.png" alt="github icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/john-winters/">
+                        <img src="../assets/linkedin.png" alt="linkedin icon">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-
-
-
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card" style="width: 24rem;">
+                <img class="card-img-top" src="../assets/reina.jpg" alt="reina" title="Reina Vencer">
+                <div class="card-body">
+                    <h5 class="card-title">Reina Vencer</h5>
+                    <p>"I am a Software Developer working with AWS as an SDE Apprentice. I am from Long Island, New York.
+                        I graduated with a Bachelor's in Computer Programming & Information Systems in SUNY Farmingdale State College.
+                        I studied art and biology prior to finding my interest in technology.
+                        I discovered my passion for coding in college after taking the programming 1 course they have as an elective when I was a Bioscience major.
+                        What I like about programming is that it was both technical and artistic at the same time.
+                        Some fun facts about me would be my love for animals, dogs especially."
+                    </p>
+                    <a href="https://github.com/river-ceanne">
+                        <img src="../assets/github-icon.png" alt="github icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/reina-vencer/">
+                        <img src="../assets/linkedin.png" alt="linkedin icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card" style="width: 24rem;">
+                <img class="card-img-top" src="../assets/devon.png" alt="devon" title="Devon Hackley">
+                <div class="card-body">
+                    <h5 class="card-title">Devon Hackley</h5>
+                    <p>"Hello, I am an Air Force Veteran turned coder.
+                        I have spent the past year working as a developer and I'm currently a Software Development Engineering Apprentice at Amazon.
+                        I have been programming for several years now and after continually facing those challenges and triumphs,
+                        the one thing that was most apparent to me was that I was how growing after those experiences.
+                        Not just in skills but in other aspects as well. That is something that has resonated with me about Technology,
+                        is the fact that it's constantly encouraging and innovating growth.
+                        I'm personally excited to continue my growth at Amazon by building applications that not only,
+                        reach users and inspire them to grow, but to also continue the growth and impact that technology has in our everyday lives and future."
+                    </p>
+                    <a href="https://github.com/devonhackley">
+                        <img src="../assets/github-icon.png" alt="github icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/devon-hackley/">
+                        <img src="../assets/linkedin.png" alt="linkedin icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
