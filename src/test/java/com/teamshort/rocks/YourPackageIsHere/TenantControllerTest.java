@@ -139,13 +139,13 @@ public class TenantControllerTest {
                 .andDo(print())
                 .andExpect(header().string("location", containsString("/tenant/all")));
 
-        Tenant tenantCreate = tenantRepository.findByEmail("bloop@bloop.com");
+        List<Tenant> tenantCreate = tenantRepository.findByEmail("bloop@bloop.com");
 
-        assertEquals(tenant.email,tenantCreate.getEmail()); // check Creation and Read data
+        assertEquals(tenant.email,tenantCreate.get(0).getEmail()); // check Creation and Read data
 
         //UPDATE instance' name
-        tenantCreate.setEmail("blooperson@blooperson.com");
-        tenantRepository.save(tenantCreate);
+        tenantCreate.get(0).setEmail("blooperson@blooperson.com");
+        tenantRepository.save(tenantCreate.get(0));
 
         List<Tenant> tenantResUpdate = tenantRepository.findByFirstnameIgnoreCaseAndLastnameIgnoreCase("Bloopy","Blooperson");
 
