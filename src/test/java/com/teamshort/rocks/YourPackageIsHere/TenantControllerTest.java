@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcConfigurer;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -158,7 +159,7 @@ public class TenantControllerTest {
                         .with(testUser()))
                 .andDo(print())
                 .andExpect(view().name("allTenants"));
-        assertNull(tenantRepository.findByEmail("blooperson@blooperson.com"));
+        assertEquals(new ArrayList<>(),tenantRepository.findByEmail("blooperson@blooperson.com"));
 
     }
 
