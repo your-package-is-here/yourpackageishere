@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcConfigurer;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -139,13 +140,13 @@ public class TenantControllerTest {
                 .andDo(print())
                 .andExpect(header().string("location", containsString("/tenant/all")));
 
-        Tenant tenantCreate = tenantRepository.findByEmail("bloop@bloop.com");
+        List<Tenant> tenantCreate = tenantRepository.findByEmail("bloop@bloop.com");
 
-        assertEquals(tenant.email,tenantCreate.getEmail()); // check Creation and Read data
+        assertEquals(tenant.email,tenantCreate.get(0).getEmail()); // check Creation and Read data
 
         //UPDATE instance' name
-        tenantCreate.setEmail("blooperson@blooperson.com");
-        tenantRepository.save(tenantCreate);
+        tenantCreate.get(0).setEmail("blooperson@blooperson.com");
+        tenantRepository.save(tenantCreate.get(0));
 
         List<Tenant> tenantResUpdate = tenantRepository.findByFirstnameIgnoreCaseAndLastnameIgnoreCase("Bloopy","Blooperson");
 
@@ -158,7 +159,7 @@ public class TenantControllerTest {
                         .with(testUser()))
                 .andDo(print())
                 .andExpect(view().name("allTenants"));
-        assertNull(tenantRepository.findByEmail("blooperson@blooperson.com"));
+        assertEquals(new ArrayList<>(),tenantRepository.findByEmail("blooperson@blooperson.com"));
 
     }
 

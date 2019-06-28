@@ -8,6 +8,6 @@ public interface TenantRepository extends CrudRepository<Tenant, Long> {
     List<Tenant> findByFirstnameIgnoreCaseAndLastnameIgnoreCaseAndBuildingId(String firstname, String lastname, long id);
     List<Tenant> findByAptnumIgnoreCaseAndBuildingId(String aptnum, long id);
     Tenant findById(long id);
-    Tenant findByEmail(String email);
+    List<Tenant> findByEmail(String email);
     List<Tenant> findByBuilding(Building building);
 }
