@@ -1,6 +1,7 @@
 # Project Name: Your Package Is Here
 401 Mid-Course Java Project
 
+![image](https://i.imgur.com/dcCzcSG.jpg)
 
 ### Summary
 This Java application is designed to be used by a building manager to scan received 
@@ -136,6 +137,10 @@ open the mobile camera.
     @PostMapping("/tenantedit")
         public RedirectView editTenant(Principal p, String id, String firstname, String lastname, String email, String aptnum, String phonenum)     
 
+### Screen Shots
+![image](https://i.imgur.com/geZ4PIG.png)
+![image](https://i.imgur.com/oys3Oqt.png)
+![image](https://i.imgur.com/28D097B.png)
 
 ### License - MIT
 
