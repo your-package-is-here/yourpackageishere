@@ -148,7 +148,7 @@ public class TenantControllerTest {
         tenantCreate.get(0).setEmail("blooperson@blooperson.com");
         tenantRepository.save(tenantCreate.get(0));
 
-        List<Tenant> tenantResUpdate = tenantRepository.findByFirstnameIgnoreCaseAndLastnameIgnoreCase("Bloopy","Blooperson");
+        List<Tenant> tenantResUpdate = tenantRepository.findByEmail("blooperson@blooperson.com");
 
 
         assertEquals("blooperson@blooperson.com",tenantResUpdate.get(0).getEmail()); // check Update and Read data

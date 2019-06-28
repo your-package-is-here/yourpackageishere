@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -132,13 +134,13 @@ public class BuildingControllerTest {
                 .andExpect(header().string("location", containsString("/tenant/all")));
 
        Building testBuilding = buildingRepository.findByUsername("bloo");
-       Tenant testTenant =  tenantRepository.findByEmail("fake@fake.com");
+       List<Tenant> testTenant =  tenantRepository.findByEmail("fake@fake.com");
 
        // Able to send emails
-       assertFalse(BuildingController.sendEmailHelper(testBuilding, testTenant,"1243123dsadasdasdasdsf"));
+       assertFalse(BuildingController.sendEmailHelper(testBuilding, testTenant.get(0),"1243123dsadasdasdasdsf"));
 
         // Delete Entities
-        tenantRepository.delete(testTenant);
+        tenantRepository.delete(testTenant.get(0));
         buildingRepository.delete(testBuilding);
     }
 
