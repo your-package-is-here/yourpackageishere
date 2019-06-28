@@ -22,8 +22,6 @@ public class Building implements UserDetails {
     String city;
     String state;
     String zip;
-
-    @Column(unique=true)
     String email;
     String password;
 
