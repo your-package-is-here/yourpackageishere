@@ -58,7 +58,7 @@ open the mobile camera.
 - After the submit button is clicked there will be a notification which will inform the user if the email has been sent. If there is no tenant by that name it will send an email to all of the tenants in that apartment. 
 - If there are no matches it will give a message saying that there were no tenants found.
 
-#### Deployed Link: [www.yourpackageishere.com]()
+#### Deployed Link: [www.yourpackageishere.com](www.yourpackageishere.com)
 
 ### To run locally:
 
