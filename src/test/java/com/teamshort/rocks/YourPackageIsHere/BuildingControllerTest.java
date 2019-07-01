@@ -135,8 +135,6 @@ public class BuildingControllerTest {
 
        Building testBuilding = buildingRepository.findByUsername("bloo");
        List<Tenant> testTenant =  tenantRepository.findByEmail("fake@fake.com");
-
-       // Able to send emails
        assertFalse(BuildingController.sendEmailHelper(testBuilding, testTenant.get(0),"1243123dsadasdasdasdsf"));
 
         // Delete Entities
