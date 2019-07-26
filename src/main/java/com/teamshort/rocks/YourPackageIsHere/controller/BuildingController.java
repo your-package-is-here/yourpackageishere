@@ -1,6 +1,10 @@
-package com.teamshort.rocks.YourPackageIsHere;
+package com.teamshort.rocks.YourPackageIsHere.controller;
 
 import com.sendgrid.*;
+import com.teamshort.rocks.YourPackageIsHere.repository.BuildingRepository;
+import com.teamshort.rocks.YourPackageIsHere.repository.TenantRepository;
+import com.teamshort.rocks.YourPackageIsHere.model.Building;
+import com.teamshort.rocks.YourPackageIsHere.model.Tenant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +21,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -81,15 +86,15 @@ public class BuildingController {
     @PostMapping("/sendemail")
     public void sendEmailTenant(Principal p, Model m, String trackingnumber, String aptnum, String firstname, String lastname){
         //Get the manager object
-        Building manager = buildingRepository.findByUsername(p.getName());
+        Optional<Building> manager = buildingRepository.findByUsername(p.getName());
 
         //Do logic to find the appropriate user(s) to send the email too
-        List<Tenant> tenants = getTenantHelper(firstname, lastname, aptnum, manager.getId());
+        List<Tenant> tenants = getTenantHelper(firstname, lastname, aptnum, manager.get().getId());
         //This will send the email
         Boolean isSent = false;
         // for loop to send email to all the tenants in the apartment if first name and last name does not match.
         for(Tenant tenant: tenants){
-            isSent = sendEmailHelper(manager, tenant, trackingnumber);
+            isSent = sendEmailHelper(manager.get(), tenant, trackingnumber);
         }
         m.addAttribute("message",createMessage(isSent, !tenants.isEmpty()));
         m.addAttribute("isSent", isSent);
@@ -114,10 +119,10 @@ public class BuildingController {
     // https://www.youtube.com/watch?v=06M3lZzZEMY
     // This method sends the email to the appropriate user using sendgrid api
     public static Boolean sendEmailHelper(Building sender, Tenant receiver, String trackingnumber){
-        Email from = new Email(sender.email);
-        Email to = new Email (receiver.email);
+        Email from = new Email(sender.getEmail());
+        Email to = new Email (receiver.getEmail());
         String subject = "Your package has arrived";
-        String message = String.format("Hello %s,\nYour package(tracking number %s) has been received at the %s office.\n", receiver.firstname, trackingnumber, sender.name);
+        String message = String.format("Hello %s,\nYour package(tracking number %s) has been received at the %s office.\n", receiver.getFirstname(), trackingnumber, sender.getName());
         Content content = new Content("text/plain", message);
         Mail mail = new Mail(from, subject, to, content);
 

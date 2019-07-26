@@ -1,5 +1,9 @@
-package com.teamshort.rocks.YourPackageIsHere;
+package com.teamshort.rocks.YourPackageIsHere.controller;
 
+import com.teamshort.rocks.YourPackageIsHere.repository.BuildingRepository;
+import com.teamshort.rocks.YourPackageIsHere.repository.TenantRepository;
+import com.teamshort.rocks.YourPackageIsHere.model.Building;
+import com.teamshort.rocks.YourPackageIsHere.model.Tenant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.util.Optional;
 
 @Controller
 public class TenantController {
@@ -22,8 +27,8 @@ public class TenantController {
     public String getAllTenants(Principal principal, Model model) {
         String p = principal == null ? "" : principal.getName();
         if(principal != null){
-            Building building = buildingRepository.findByUsername(principal.getName());
-            Iterable<Tenant> tenants = tenantRepository.findByBuilding(building);
+            Optional<Building> building = buildingRepository.findByUsername(principal.getName());
+            Iterable<Tenant> tenants = tenantRepository.findByBuilding(building.get());
             model.addAttribute("tenants", tenants);
         }
 
@@ -46,8 +51,8 @@ public class TenantController {
 
     @PostMapping("/tenantcreate")
     public RedirectView createTenant(Principal p, String firstname, String lastname, String email, String aptnum, String phonenum) throws ParseException {
-        Building building = buildingRepository.findByUsername(p.getName());
-        Tenant tenant = new Tenant(firstname,lastname,email,aptnum,phonenum, building);
+        Optional<Building> building = buildingRepository.findByUsername(p.getName());
+        Tenant tenant = new Tenant(firstname,lastname,email,aptnum,phonenum, building.get());
         tenantRepository.save(tenant);
 
         return new RedirectView("/tenant/all");
