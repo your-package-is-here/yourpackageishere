@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
+@Table(name = "building", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "username"
         }),
@@ -33,10 +33,24 @@ public class Building extends DateAudit {
     @Size(max = 15)
     String username;
 
+    @NotBlank
+    @Size(max = 40)
     String name;
+
+    @NotBlank
+    @Size(max = 40)
     String streetaddress;
+
+    @NotBlank
+    @Size(max = 40)
     String city;
+
+    @NotBlank
+    @Size(max = 40)
     String state;
+
+    @NotBlank
+    @Size(max = 10)
     String zip;
 
     @NaturalId
@@ -53,8 +67,8 @@ public class Building extends DateAudit {
     Set<Tenant> tenants;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "building_roles",
+            joinColumns = @JoinColumn(name = "building_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
