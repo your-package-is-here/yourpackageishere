@@ -141,7 +141,7 @@ public class TenantControllerTest {
 
         List<Tenant> tenantCreate = tenantRepository.findByEmail("bloop@bloop.com");
 
-        assertEquals(tenant.email,tenantCreate.get(0).getEmail()); // check Creation and Read data
+        assertEquals(tenant.getEmail(),tenantCreate.get(0).getEmail()); // check Creation and Read data
 
         //UPDATE instance' name
         tenantCreate.get(0).setEmail("blooperson@blooperson.com");

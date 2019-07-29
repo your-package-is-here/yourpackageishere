@@ -17,12 +17,12 @@ public class TenantTest {
     @Test
     public void testTenantDefaultConstructor() {
         Tenant tenant = new Tenant();
-        assertNull(tenant.firstname);
-        assertNull(tenant.lastname);
-        assertNull(tenant.aptnum);
-        assertNull(tenant.email);
-        assertNull(tenant.phonenum);
-        assertNull(tenant.building);
+        assertNull(tenant.getFirstname());
+        assertNull(tenant.getLastname());
+        assertNull(tenant.getAptnum());
+        assertNull(tenant.getEmail());
+        assertNull(tenant.getPhonenum());
+        assertNull(tenant.getBuilding());
 
     }
 
@@ -35,11 +35,11 @@ public class TenantTest {
     public void testTenantConstructor(){
 //  Tenant(String firstname, String lastname, String email, String aptnum, String phonenum, Building building)
         Tenant tenant = initialize();
-        assertEquals("Bloopy",tenant.firstname);
-        assertEquals("Blooperson", tenant.lastname);
-        assertEquals("bloop@bloop.com", tenant.email);
-        assertEquals("1D", tenant.aptnum);
-        assertEquals("111-111-1111", tenant.phonenum);
+        assertEquals("Bloopy",tenant.getFirstname());
+        assertEquals("Blooperson", tenant.getLastname());
+        assertEquals("bloop@bloop.com", tenant.getEmail());
+        assertEquals("1D", tenant.getAptnum());
+        assertEquals("111-111-1111", tenant.getPhonenum());
 
     }
 

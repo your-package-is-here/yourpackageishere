@@ -14,12 +14,12 @@ public class BuildingTest {
     @Test
     public void testBuildingDefaultConstructor() {
         Building building = new Building();
-        assertNull(building.tenants);
-        assertNull(building.city);
-        assertNull(building.email);
-        assertNull(building.password);
-        assertNull(building.name);
-        assertNull(building.streetaddress);
+        assertNull(building.getTenants());
+        assertNull(building.getCity());
+        assertNull(building.getEmail());
+        assertNull(building.getPassword());
+        assertNull(building.getState());
+        assertNull(building.getStreetaddress());
 
     }
 
@@ -28,14 +28,14 @@ public class BuildingTest {
 //  Building(String username, String name, String streetaddress, String city, String state, String zip, String email, String password)
     Building building = new Building("bloop","Bloop Building","1 Bloop Ave",
             "Bloop City", "WA", "90210","bloop@bloop.com","bloop123");
-    assertEquals("bloop",building.username);
-    assertEquals("Bloop Building", building.name);
-    assertEquals("1 Bloop Ave", building.streetaddress);
-    assertEquals("Bloop City",building.city);
-    assertEquals("WA", building.state);
-    assertEquals("90210", building.zip);
-    assertEquals("bloop@bloop.com", building.email);
-    assertEquals("bloop123", building.password);
+    assertEquals("bloop",building.getUsername());
+    assertEquals("Bloop Building", building.getName());
+    assertEquals("1 Bloop Ave", building.getStreetaddress());
+    assertEquals("Bloop City",building.getCity());
+    assertEquals("WA", building.getState());
+    assertEquals("90210", building.getZip());
+    assertEquals("bloop@bloop.com", building.getEmail());
+    assertEquals("bloop123", building.getPassword());
 
     }
 

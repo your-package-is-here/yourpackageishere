@@ -1,17 +1,19 @@
 package com.teamshort.rocks.YourPackageIsHere.controller;
 
-import com.sendgrid.*;
+import com.teamshort.rocks.YourPackageIsHere.payload.BuildingSummary;
 import com.teamshort.rocks.YourPackageIsHere.repository.BuildingRepository;
 import com.teamshort.rocks.YourPackageIsHere.model.Building;
+import com.teamshort.rocks.YourPackageIsHere.repository.TenantRepository;
+import com.teamshort.rocks.YourPackageIsHere.security.BuildingPrincipal;
+import com.teamshort.rocks.YourPackageIsHere.security.CurrentBuilding;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
@@ -22,17 +24,29 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class BuildingController {
 
+    @Autowired
+    private BuildingRepository buildingRepository;
+
+    @Autowired
+    private TenantRepository tenantRepository;
+
+
 //    @Autowired
-//    PasswordEncoder bCryptPasswordEncoder;
-//
-//    @Autowired
-//    BuildingRepository buildingRepository;
-//
-//    @Autowired
-//    TenantRepository tenantRepository;
+//    private PollService pollService;
+
+    private static final Logger logger = LoggerFactory.getLogger(BuildingController.class);
+
+    @GetMapping("/user/me")
+    @PreAuthorize("hasRole('USER')")
+    public BuildingSummary getCurrentBuilding(@CurrentBuilding BuildingPrincipal currentBuilding) {
+        BuildingSummary buildingSummary = new BuildingSummary(currentBuilding.getId(), currentBuilding.getUsername(), currentBuilding.getName(), currentBuilding.getStreetaddress(), currentBuilding.getCity(), currentBuilding.getState(), currentBuilding.getZip(), currentBuilding.getEmail());
+        return buildingSummary;
+    }
+    
 //
 //
 //    @PostMapping("/buildingcreate")
