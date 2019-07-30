@@ -1,6 +1,7 @@
 package com.teamshort.rocks.YourPackageIsHere.controller;
 
 import com.teamshort.rocks.YourPackageIsHere.model.Tenant;
+import com.teamshort.rocks.YourPackageIsHere.payload.ApiResponse;
 import com.teamshort.rocks.YourPackageIsHere.payload.BuildingSummary;
 import com.teamshort.rocks.YourPackageIsHere.payload.SendMessageRequest;
 import com.teamshort.rocks.YourPackageIsHere.payload.TenantResponse;
@@ -12,6 +13,7 @@ import com.teamshort.rocks.YourPackageIsHere.security.CurrentBuilding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -57,7 +59,7 @@ public class BuildingController {
     }
 
     @PostMapping("/user/sendmessage")
-    public void sendEmail(@CurrentBuilding BuildingPrincipal currentBuilding, @Valid @RequestBody SendMessageRequest sendMessageRequest){
+    public ResponseEntity<?> sendEmail(@CurrentBuilding BuildingPrincipal currentBuilding, @Valid @RequestBody SendMessageRequest sendMessageRequest){
         //Get the manager object
         Optional<Building> manager = buildingRepository.findByUsername(currentBuilding.getUsername());
 
@@ -72,6 +74,23 @@ public class BuildingController {
             isSent = helperSendEmail(tenant, sendMessageRequest.getTrackingnumber());
             helperSendSMS(tenant, sendMessageRequest.getTrackingnumber());
         }
+
+        return ResponseEntity.ok(new ApiResponse(true, createMessage(isSent, !tenants.isEmpty())));
+    }
+
+    // This method creates the success or error message
+    private String createMessage(boolean isSent, boolean isTenants){
+        String message;
+        if(isSent){
+            message = "Your Email has been sent.";
+        }else{
+            if(isTenants){
+                message = "There was a problem sending the email.";
+            }else{
+                message = "No matching tenants were found.";
+            }
+        }
+        return message;
     }
 
     public static Boolean helperSendEmail(Tenant receiver, String trackingnumber){
