@@ -63,10 +63,10 @@ public class TenantController {
         // Get the current building from the repo
         Optional<Building> building = buildingRepository.findByUsername(currentBuilding.getName());
         // Create payload for response
-        Set<TenantReponse> tenantResponse = new HashSet<>();
+        Set<TenantResponse> tenantResponse = new HashSet<>();
         // Loop through and content Tenant models to Payload TenantResponses
         for(Tenant tenant : building.get().getTenants()){
-            tenantResponse.add(new TenantReponse(tenant.getId(), tenant.getFirstname(), tenant.getLastname(), tenant.getEmail(), tenant.getAptnum(), tenant.getPhonenum(), tenant.getBuilding().getName()));
+            tenantResponse.add(new TenantResponse(tenant.getId(), tenant.getFirstname(), tenant.getLastname(), tenant.getEmail(), tenant.getAptnum(), tenant.getPhonenum(), tenant.getBuilding().getName()));
         }
         // Return the set of tenants (all tenants)
         return tenantResponse;
@@ -82,7 +82,7 @@ public class TenantController {
             return ResponseEntity.badRequest().body(new ApiResponse(false, "You don't have permissions to view this tenant"));
         }
         // Return tenant response payload
-        return ResponseEntity.ok(new TenantReponse(tenant.getId(), tenant.getFirstname(), tenant.getLastname(), tenant.getEmail(), tenant.getAptnum(), tenant.getPhonenum(), tenant.getBuilding().getName()));
+        return ResponseEntity.ok(new TenantResponse(tenant.getId(), tenant.getFirstname(), tenant.getLastname(), tenant.getEmail(), tenant.getAptnum(), tenant.getPhonenum(), tenant.getBuilding().getName()));
     }
 
     @PutMapping("/tenant/edit")
