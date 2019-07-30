@@ -140,11 +140,11 @@ public class BuildingControllerTest {
 
        Optional<Building> testBuilding = buildingRepository.findByUsername("bloo");
        List<Tenant> testTenant =  tenantRepository.findByEmail("fake@fake.com");
-       assertFalse(BuildingController.sendEmailHelper(testBuilding, testTenant.get(0),"1243123dsadasdasdasdsf"));
+       assertFalse(BuildingController.helperSendEmail(testTenant.get(0),"1243123dsadasdasdasdsf"));
 
         // Delete Entities
         tenantRepository.delete(testTenant.get(0));
-        buildingRepository.delete(testBuilding);
+        buildingRepository.delete(testBuilding.get());
     }
 
     @Test
@@ -162,7 +162,7 @@ public class BuildingControllerTest {
                 .andDo(print())
                 .andExpect(header().string("location", containsString("/")));
 
-        Building buildingResCreate = buildingRepository.findByUsername("bloop");
+        Building buildingResCreate = buildingRepository.findByUsername("bloop").get();
 
         assertEquals("Bloop Building",buildingResCreate.getName()); // check Creation and Read data
 
@@ -170,7 +170,7 @@ public class BuildingControllerTest {
         buildingResCreate.setName("New Name");
         buildingRepository.save(buildingResCreate);
 
-        Building buildingResUpdate = buildingRepository.findByUsername("bloop");
+        Building buildingResUpdate = buildingRepository.findByUsername("bloop").get();
 
 
         assertEquals("New Name",buildingResUpdate.getName()); // check Update and Read data
