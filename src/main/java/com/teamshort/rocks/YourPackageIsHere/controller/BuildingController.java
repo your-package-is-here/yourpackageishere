@@ -75,7 +75,7 @@ public class BuildingController {
             helperSendSMS(tenant, sendMessageRequest.getTrackingnumber());
         }
 
-        return ResponseEntity.ok(new ApiResponse(true, createMessage(isSent, !tenants.isEmpty())));
+        return ResponseEntity.ok(new ApiResponse(isSent, createMessage(isSent, !tenants.isEmpty())));
     }
 
     // This method creates the success or error message
