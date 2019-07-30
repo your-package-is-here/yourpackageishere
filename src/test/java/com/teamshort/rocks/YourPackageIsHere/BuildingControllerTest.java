@@ -23,6 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
@@ -137,7 +138,7 @@ public class BuildingControllerTest {
                 .andDo(print())
                 .andExpect(header().string("location", containsString("/tenant/all")));
 
-       Building testBuilding = buildingRepository.findByUsername("bloo");
+       Optional<Building> testBuilding = buildingRepository.findByUsername("bloo");
        List<Tenant> testTenant =  tenantRepository.findByEmail("fake@fake.com");
        assertFalse(BuildingController.sendEmailHelper(testBuilding, testTenant.get(0),"1243123dsadasdasdasdsf"));
 

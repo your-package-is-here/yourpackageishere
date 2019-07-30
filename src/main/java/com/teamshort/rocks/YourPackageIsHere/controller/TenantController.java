@@ -1,38 +1,82 @@
 package com.teamshort.rocks.YourPackageIsHere.controller;
 
+import com.teamshort.rocks.YourPackageIsHere.exception.AppException;
+import com.teamshort.rocks.YourPackageIsHere.model.Role;
+import com.teamshort.rocks.YourPackageIsHere.model.RoleName;
+import com.teamshort.rocks.YourPackageIsHere.model.Tenant;
+import com.teamshort.rocks.YourPackageIsHere.payload.ApiResponse;
+import com.teamshort.rocks.YourPackageIsHere.payload.BuildingSummary;
+import com.teamshort.rocks.YourPackageIsHere.payload.NewTenantRequest;
+import com.teamshort.rocks.YourPackageIsHere.payload.SignUpRequest;
 import com.teamshort.rocks.YourPackageIsHere.repository.BuildingRepository;
 import com.teamshort.rocks.YourPackageIsHere.model.Building;
+import com.teamshort.rocks.YourPackageIsHere.repository.TenantRepository;
+import com.teamshort.rocks.YourPackageIsHere.security.BuildingPrincipal;
+import com.teamshort.rocks.YourPackageIsHere.security.CurrentBuilding;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.security.Principal;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class TenantController {
 
+    @Autowired
+    private BuildingRepository buildingRepository;
+
+    @Autowired
+    private TenantRepository tenantRepository;
+
+
 //    @Autowired
-//    TenantRepository tenantRepository;
+//    private PollService pollService;
+    //       this.firstname = firstname;
+    //        this.lastname = lastname;
+    //        this.email = email;
+    //        this.aptnum = aptnum;
+    //        this.phonenum = phonenum;
+    //        this.building = building;
+
+    private static final Logger logger = LoggerFactory.getLogger(BuildingController.class);
+
+    @PostMapping("/tenant/add")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> addTenant(@CurrentBuilding BuildingPrincipal currentBuilding, @Valid @RequestBody NewTenantRequest newTenantRequest) {
+        Optional<Building> building = buildingRepository.findByUsername(currentBuilding.getUsername());
+        // Creating tenant's account
+        Tenant tenant = new Tenant(newTenantRequest.getFirstname(), newTenantRequest.getLastname(), newTenantRequest.getEmail(), newTenantRequest.getAptnum(), newTenantRequest.getPhonenum(), building.get());
+
+        Tenant result = tenantRepository.save(tenant);
+
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentContextPath().path("/api/users/{tenant}")
+//                .buildAndExpand(result.).toUri();
+
+        return ResponseEntity.ok(new ApiResponse(true, "Tenant registered successfully"));
+    }
 //
-//    @Autowired
-//    BuildingRepository buildingRepository;
-//
-//    @GetMapping("/tenant/all")
-//    public String getAllTenants(Principal principal, Model model) {
-//        String p = principal == null ? "" : principal.getName();
-//        if(principal != null){
-//            Optional<Building> building = buildingRepository.findByUsername(principal.getName());
-//            Iterable<Tenant> tenants = tenantRepository.findByBuilding(building.get());
-//            model.addAttribute("tenants", tenants);
-//        }
-//
-//        model.addAttribute("principal", p);
-//        return "allTenants";
-//    }
+    @GetMapping("/tenant/all")
+    public Set<Tenant> getAllTenants(@CurrentBuilding BuildingPrincipal currentBuilding) {
+        Optional<Building> building = buildingRepository.findByUsername(currentBuilding.getName());
+        
+        return building.get().getTenants();
+    }
 //
 //    @GetMapping("/tenant/{id}")
 //    public String getTenantPage(@PathVariable String id, Model m) {

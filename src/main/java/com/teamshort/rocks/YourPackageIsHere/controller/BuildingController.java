@@ -46,7 +46,7 @@ public class BuildingController {
         BuildingSummary buildingSummary = new BuildingSummary(currentBuilding.getId(), currentBuilding.getUsername(), currentBuilding.getName(), currentBuilding.getStreetaddress(), currentBuilding.getCity(), currentBuilding.getState(), currentBuilding.getZip(), currentBuilding.getEmail());
         return buildingSummary;
     }
-    
+
 //
 //
 //    @PostMapping("/buildingcreate")
