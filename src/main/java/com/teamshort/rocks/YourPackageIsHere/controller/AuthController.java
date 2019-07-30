@@ -92,9 +92,4 @@ public class AuthController {
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
-
-    @GetMapping("/")
-    public String home(){
-        return "home";
-    }
 }
