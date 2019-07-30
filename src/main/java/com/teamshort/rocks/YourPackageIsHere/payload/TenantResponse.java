@@ -1,8 +1,6 @@
 package com.teamshort.rocks.YourPackageIsHere.payload;
 
-import com.teamshort.rocks.YourPackageIsHere.model.Building;
-
-public class TenantReponse {
+public class TenantResponse {
     long id;
     String firstname;
     String lastname;
@@ -11,9 +9,9 @@ public class TenantReponse {
     String phonenum;
     String building;
 
-    public TenantReponse(){}
+    public TenantResponse(){}
 
-    public TenantReponse(long id, String firstname, String lastname, String email, String aptnum, String phonenum, String building){
+    public TenantResponse(long id, String firstname, String lastname, String email, String aptnum, String phonenum, String building){
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;

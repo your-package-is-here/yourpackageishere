@@ -38,5 +38,7 @@ dependencies {
 	// not sure about htis one
 	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.9'
 
-
+	compile 'com.amazonaws:aws-java-sdk-sqs:1.11.587'
+	compile group: 'com.amazonaws', name: 'aws-java-sdk-sns', version: '1.11.595'
+	compile group: 'com.amazonaws', name: 'aws-java-sdk-ses', version: '1.11.595'
 }
