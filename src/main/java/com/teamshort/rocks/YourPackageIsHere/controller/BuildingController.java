@@ -2,6 +2,7 @@ package com.teamshort.rocks.YourPackageIsHere.controller;
 
 import com.teamshort.rocks.YourPackageIsHere.model.Tenant;
 import com.teamshort.rocks.YourPackageIsHere.payload.BuildingSummary;
+import com.teamshort.rocks.YourPackageIsHere.payload.SendMessageRequest;
 import com.teamshort.rocks.YourPackageIsHere.payload.TenantResponse;
 import com.teamshort.rocks.YourPackageIsHere.repository.BuildingRepository;
 import com.teamshort.rocks.YourPackageIsHere.model.Building;
@@ -56,20 +57,20 @@ public class BuildingController {
     }
 
     @PostMapping("/user/sendmessage")
-    public void sendEmail(@CurrentBuilding BuildingPrincipal currentBuilding, @Valid @RequestBody TenantResponse tenantResponse){
+    public void sendEmail(@CurrentBuilding BuildingPrincipal currentBuilding, @Valid @RequestBody SendMessageRequest sendMessageRequest){
         //Get the manager object
         Optional<Building> manager = buildingRepository.findByUsername(currentBuilding.getUsername());
 
         //Do logic to find the appropriate user(s) to send the email too
-        List<Tenant> tenants = getTenantHelper(tenantResponse.getFirstname(), tenantResponse.getLastname(), tenantResponse.getAptnum(), manager.get().getId());
+        List<Tenant> tenants = getTenantHelper(sendMessageRequest.getFirstname(), sendMessageRequest.getLastname(), sendMessageRequest.getAptnum(), manager.get().getId());
 
         //This will send the email
         Boolean isSent = false;
 
         // for loop to send email to all the tenants in the apartment if first name and last name does not match.
         for(Tenant tenant: tenants){
-            isSent = helperSendEmail(tenant, tenantResponse.getTrackingnumber());
-            helperSendSMS(tenant, tenantResponse.getTrackingnumber());
+            isSent = helperSendEmail(tenant, sendMessageRequest.getTrackingnumber());
+            helperSendSMS(tenant, sendMessageRequest.getTrackingnumber());
         }
     }
 
