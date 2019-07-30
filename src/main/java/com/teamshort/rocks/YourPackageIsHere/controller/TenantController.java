@@ -4,10 +4,7 @@ import com.teamshort.rocks.YourPackageIsHere.exception.AppException;
 import com.teamshort.rocks.YourPackageIsHere.model.Role;
 import com.teamshort.rocks.YourPackageIsHere.model.RoleName;
 import com.teamshort.rocks.YourPackageIsHere.model.Tenant;
-import com.teamshort.rocks.YourPackageIsHere.payload.ApiResponse;
-import com.teamshort.rocks.YourPackageIsHere.payload.BuildingSummary;
-import com.teamshort.rocks.YourPackageIsHere.payload.NewTenantRequest;
-import com.teamshort.rocks.YourPackageIsHere.payload.SignUpRequest;
+import com.teamshort.rocks.YourPackageIsHere.payload.*;
 import com.teamshort.rocks.YourPackageIsHere.repository.BuildingRepository;
 import com.teamshort.rocks.YourPackageIsHere.model.Building;
 import com.teamshort.rocks.YourPackageIsHere.repository.TenantRepository;
@@ -30,6 +27,7 @@ import java.net.URI;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -43,25 +41,14 @@ public class TenantController {
     @Autowired
     private TenantRepository tenantRepository;
 
-
-//    @Autowired
-//    private PollService pollService;
-    //       this.firstname = firstname;
-    //        this.lastname = lastname;
-    //        this.email = email;
-    //        this.aptnum = aptnum;
-    //        this.phonenum = phonenum;
-    //        this.building = building;
-
     private static final Logger logger = LoggerFactory.getLogger(BuildingController.class);
 
     @PostMapping("/tenant/add")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> addTenant(@CurrentBuilding BuildingPrincipal currentBuilding, @Valid @RequestBody NewTenantRequest newTenantRequest) {
         Optional<Building> building = buildingRepository.findByUsername(currentBuilding.getUsername());
         // Creating tenant's account
         Tenant tenant = new Tenant(newTenantRequest.getFirstname(), newTenantRequest.getLastname(), newTenantRequest.getEmail(), newTenantRequest.getAptnum(), newTenantRequest.getPhonenum(), building.get());
-
+        // Save new tenant to the repository
         Tenant result = tenantRepository.save(tenant);
 
 //        URI location = ServletUriComponentsBuilder
@@ -70,56 +57,70 @@ public class TenantController {
 
         return ResponseEntity.ok(new ApiResponse(true, "Tenant registered successfully"));
     }
-//
+
     @GetMapping("/tenant/all")
-    public Set<Tenant> getAllTenants(@CurrentBuilding BuildingPrincipal currentBuilding) {
+    public Set<?> getAllTenants(@CurrentBuilding BuildingPrincipal currentBuilding) {
+        // Get the current building from the repo
         Optional<Building> building = buildingRepository.findByUsername(currentBuilding.getName());
-        
-        return building.get().getTenants();
+        // Create payload for response
+        Set<TenantReponse> tenantResponse = new HashSet<>();
+        // Loop through and content Tenant models to Payload TenantResponses
+        for(Tenant tenant : building.get().getTenants()){
+            tenantResponse.add(new TenantReponse(tenant.getId(), tenant.getFirstname(), tenant.getLastname(), tenant.getEmail(), tenant.getAptnum(), tenant.getPhonenum(), tenant.getBuilding().getName()));
+        }
+        // Return the set of tenants (all tenants)
+        return tenantResponse;
     }
-//
-//    @GetMapping("/tenant/{id}")
-//    public String getTenantPage(@PathVariable String id, Model m) {
-//        long ID = Long.parseLong(id);
-//        Tenant tenant = tenantRepository.findById(ID);
-//        m.addAttribute("tenant", tenant);
-//        return "tenant";
-//    }
-//
-//    @GetMapping("/tenant/add")
-//    public String getTenantAddPage() {
-//        return "tenant";
-//    }
-//
-//    @PostMapping("/tenantcreate")
-//    public RedirectView createTenant(Principal p, String firstname, String lastname, String email, String aptnum, String phonenum) throws ParseException {
-//        Optional<Building> building = buildingRepository.findByUsername(p.getName());
-//        Tenant tenant = new Tenant(firstname,lastname,email,aptnum,phonenum, building.get());
-//        tenantRepository.save(tenant);
-//
-//        return new RedirectView("/tenant/all");
-//    }
-//
-//    @PutMapping("/tenantedit")
-//    public RedirectView editTenant(Principal p, String id, String firstname, String lastname, String email, String aptnum, String phonenum) throws ParseException {
-//        long ID = Long.parseLong(id);
-//        Tenant tenant = tenantRepository.findById(ID);
-//        tenant.setFirstname(firstname);
-//        tenant.setLastname(lastname);
-//        tenant.setEmail(email);
-//        tenant.setAptnum(aptnum);
-//        tenant.setPhonenum(phonenum);
-//        tenantRepository.save(tenant);
-//
-//        return new RedirectView("/tenant/all");
-//    }
-//
-//    @DeleteMapping("/tenant/{id}/delete")
-//    public String deleteTenant(Principal p, @PathVariable String id, Model m) {
-//        long ID = Long.parseLong(id);
-//        Tenant tenant = tenantRepository.findById(ID);
-//        tenantRepository.delete(tenant);
-//        return getAllTenants(p, m);
-//    }
+
+    @GetMapping("/tenant/{id}")
+    public ResponseEntity<?> getTenant(@CurrentBuilding BuildingPrincipal currentBuilding, @PathVariable(value = "id") String id) {
+        // Get id
+        long ID = Long.parseLong(id);
+        // Find tenant by ID
+        Tenant tenant = tenantRepository.findById(ID);
+        if(tenant.getBuilding() != buildingRepository.findByUsername(currentBuilding.getUsername()).get()){
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "You don't have permissions to view this tenant"));
+        }
+        // Return tenant response payload
+        return ResponseEntity.ok(new TenantReponse(tenant.getId(), tenant.getFirstname(), tenant.getLastname(), tenant.getEmail(), tenant.getAptnum(), tenant.getPhonenum(), tenant.getBuilding().getName()));
+    }
+
+    @PutMapping("/tenant/edit")
+    public ResponseEntity<?> editTenant(@CurrentBuilding BuildingPrincipal currentBuilding, @Valid @RequestBody NewTenantRequest newTenantRequest, @PathVariable(value = "id") String id) {
+        // Get id
+        long ID = Long.parseLong(id);
+        // Get tenant and update information
+        Tenant tenant = tenantRepository.findById(ID);
+        if(tenant.getBuilding() != buildingRepository.findByUsername(currentBuilding.getUsername()).get()){
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "You don't have permissions to delete this tenant"));
+        }else{
+            tenant.setFirstname(newTenantRequest.getFirstname());
+            tenant.setLastname(newTenantRequest.getLastname());
+            tenant.setEmail(newTenantRequest.getEmail());
+            tenant.setAptnum(newTenantRequest.getAptnum());
+            tenant.setPhonenum(newTenantRequest.getPhonenum());
+            // Resave (update) the tenant
+            tenantRepository.save(tenant);
+            // Return response
+            return ResponseEntity.ok(new ApiResponse(true, "User was successfully deleted"));
+        }
+    }
+
+    @DeleteMapping("/tenant/{id}/delete")
+    public ResponseEntity<?>  deleteTenant(@CurrentBuilding BuildingPrincipal currentBuilding, @PathVariable(value = "id") String id) {
+        // Get id
+        long ID = Long.parseLong(id);
+        // Get building from repo
+        Tenant tenant = tenantRepository.findById(ID);
+        // Check to make sure that this is a valid person
+        if(tenant.getBuilding() != buildingRepository.findByUsername(currentBuilding.getUsername()).get()){
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "You don't have permissions to delete this tenant"));
+        }else{
+            // Delete said tenant
+            tenantRepository.delete(tenant);
+            // Return response
+            return ResponseEntity.ok(new ApiResponse(true, "User was successfully deleted"));
+        }
+    }
 
 }
