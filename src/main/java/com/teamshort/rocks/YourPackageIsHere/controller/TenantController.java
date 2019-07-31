@@ -61,9 +61,11 @@ public class TenantController {
     @GetMapping("/tenant/all")
     public Set<?> getAllTenants(@CurrentBuilding BuildingPrincipal currentBuilding) {
         // Get the current building from the repo
-        Optional<Building> building = buildingRepository.findByUsername(currentBuilding.getName());
+        Optional<Building> building = buildingRepository.findByUsername(currentBuilding.getUsername());
+
         // Create payload for response
         Set<TenantResponse> tenantResponse = new HashSet<>();
+
         // Loop through and content Tenant models to Payload TenantResponses
         for(Tenant tenant : building.get().getTenants()){
             tenantResponse.add(new TenantResponse(tenant.getId(), tenant.getFirstname(), tenant.getLastname(), tenant.getEmail(), tenant.getAptnum(), tenant.getPhonenum(), tenant.getBuilding().getName()));
