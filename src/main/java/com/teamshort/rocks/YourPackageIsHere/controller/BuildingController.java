@@ -4,7 +4,6 @@ import com.teamshort.rocks.YourPackageIsHere.model.Tenant;
 import com.teamshort.rocks.YourPackageIsHere.payload.ApiResponse;
 import com.teamshort.rocks.YourPackageIsHere.payload.BuildingSummary;
 import com.teamshort.rocks.YourPackageIsHere.payload.SendMessageRequest;
-import com.teamshort.rocks.YourPackageIsHere.payload.TenantResponse;
 import com.teamshort.rocks.YourPackageIsHere.repository.BuildingRepository;
 import com.teamshort.rocks.YourPackageIsHere.model.Building;
 import com.teamshort.rocks.YourPackageIsHere.repository.TenantRepository;
@@ -16,11 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-
-import java.io.IOException;
-import java.security.Principal;
-import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,6 +30,7 @@ import com.amazonaws.services.sns.model.PublishResult;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class BuildingController {
 

@@ -1,8 +1,5 @@
 package com.teamshort.rocks.YourPackageIsHere.controller;
 
-import com.teamshort.rocks.YourPackageIsHere.exception.AppException;
-import com.teamshort.rocks.YourPackageIsHere.model.Role;
-import com.teamshort.rocks.YourPackageIsHere.model.RoleName;
 import com.teamshort.rocks.YourPackageIsHere.model.Tenant;
 import com.teamshort.rocks.YourPackageIsHere.payload.*;
 import com.teamshort.rocks.YourPackageIsHere.repository.BuildingRepository;
@@ -13,25 +10,15 @@ import com.teamshort.rocks.YourPackageIsHere.security.CurrentBuilding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.servlet.view.RedirectView;
-
 import javax.validation.Valid;
-import java.net.URI;
-import java.security.Principal;
-import java.text.ParseException;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class TenantController {
 

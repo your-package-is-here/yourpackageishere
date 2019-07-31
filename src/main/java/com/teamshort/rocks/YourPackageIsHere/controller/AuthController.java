@@ -27,6 +27,7 @@ import java.net.URI;
 import java.util.Collections;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/auth")
 public class AuthController {
 
