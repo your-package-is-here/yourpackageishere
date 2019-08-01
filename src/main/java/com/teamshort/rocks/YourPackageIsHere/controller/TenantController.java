@@ -38,10 +38,6 @@ public class TenantController {
         // Save new tenant to the repository
         Tenant result = tenantRepository.save(tenant);
 
-//        URI location = ServletUriComponentsBuilder
-//                .fromCurrentContextPath().path("/api/users/{tenant}")
-//                .buildAndExpand(result.).toUri();
-
         return ResponseEntity.ok(new ApiResponse(true, "Tenant registered successfully"));
     }
 
@@ -67,6 +63,9 @@ public class TenantController {
         long ID = Long.parseLong(id);
         // Find tenant by ID
         Tenant tenant = tenantRepository.findById(ID);
+        // Check if tenant exists
+        if(tenant == null) return ResponseEntity.badRequest().body(new ApiResponse(false, "This tenant does not exist"));
+
         if(tenant.getBuilding() != buildingRepository.findByUsername(currentBuilding.getUsername()).get()){
             return ResponseEntity.badRequest().body(new ApiResponse(false, "You don't have permissions to view this tenant"));
         }
@@ -74,12 +73,15 @@ public class TenantController {
         return ResponseEntity.ok(new TenantResponse(tenant.getId(), tenant.getFirstname(), tenant.getLastname(), tenant.getEmail(), tenant.getAptnum(), tenant.getPhonenum(), tenant.getBuilding().getName()));
     }
 
-    @PutMapping("/tenant/edit")
+    @PutMapping("/tenant/{id}/edit")
     public ResponseEntity<?> editTenant(@CurrentBuilding BuildingPrincipal currentBuilding, @Valid @RequestBody NewTenantRequest newTenantRequest, @PathVariable(value = "id") String id) {
         // Get id
         long ID = Long.parseLong(id);
         // Get tenant and update information
         Tenant tenant = tenantRepository.findById(ID);
+        // Check if tenant exists
+        if(tenant == null) return ResponseEntity.badRequest().body(new ApiResponse(false, "This tenant does not exist"));
+
         if(tenant.getBuilding() != buildingRepository.findByUsername(currentBuilding.getUsername()).get()){
             return ResponseEntity.badRequest().body(new ApiResponse(false, "You don't have permissions to delete this tenant"));
         }else{
@@ -91,7 +93,7 @@ public class TenantController {
             // Resave (update) the tenant
             tenantRepository.save(tenant);
             // Return response
-            return ResponseEntity.ok(new ApiResponse(true, "User was successfully deleted"));
+            return ResponseEntity.ok(new ApiResponse(true, "User was successfully edited"));
         }
     }
 
@@ -101,6 +103,8 @@ public class TenantController {
         long ID = Long.parseLong(id);
         // Get building from repo
         Tenant tenant = tenantRepository.findById(ID);
+        // Check if tenant exists
+        if(tenant == null) return ResponseEntity.badRequest().body(new ApiResponse(false, "This tenant does not exist"));
         // Check to make sure that this is a valid person
         if(tenant.getBuilding() != buildingRepository.findByUsername(currentBuilding.getUsername()).get()){
             return ResponseEntity.badRequest().body(new ApiResponse(false, "You don't have permissions to delete this tenant"));

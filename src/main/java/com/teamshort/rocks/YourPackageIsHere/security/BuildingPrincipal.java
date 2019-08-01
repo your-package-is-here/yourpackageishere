@@ -29,7 +29,7 @@ public class BuildingPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public BuildingPrincipal(Long id, String name, String username, String streetaddress, String city, String state, String zip, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public BuildingPrincipal(Long id, String name, String username, String streetaddress, String city, String state, String zip, String email, String password) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -43,9 +43,6 @@ public class BuildingPrincipal implements UserDetails {
     }
 
     public static BuildingPrincipal create(Building building) {
-        List<GrantedAuthority> authorities = building.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name())
-        ).collect(Collectors.toList());
 
         return new BuildingPrincipal(
                 building.getId(),
@@ -56,8 +53,7 @@ public class BuildingPrincipal implements UserDetails {
                 building.getState(),
                 building.getZip(),
                 building.getEmail(),
-                building.getPassword(),
-                authorities
+                building.getPassword()
         );
     }
 
