@@ -66,12 +66,6 @@ public class Building extends DateAudit {
     @OneToMany(mappedBy = "building")
     Set<Tenant> tenants;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "building_roles",
-            joinColumns = @JoinColumn(name = "building_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
     public Building(){}
 
     public Building(String username, String name, String streetaddress, String city, String state, String zip, String email, String password){
@@ -159,13 +153,5 @@ public class Building extends DateAudit {
 
     public void setTenants(Set<Tenant> tenants) {
         this.tenants = tenants;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 }
