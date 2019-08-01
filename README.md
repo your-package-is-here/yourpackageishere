@@ -1,8 +1,6 @@
 # Project Name: Your Package Is Here
 401 Final Java Project (Back end)
 
-![image](https://i.imgur.com/dcCzcSG.jpg)
-
 ### Summary
 This Java application is designed to be used by a building manager to scan received 
 packages in the building for tenants' delieveries and send an email and text as a notification.
@@ -38,12 +36,8 @@ As a developers, leveraging delivery APIs to scan QR code or bar code to get the
 
 ### Frameworks & Technologies Used
    - Spring Boot
-   - Bootstrap
    - Java
-   - AWS Services
-    
-### API and Library
-   - 
+   - AWS Services 
    
 ### Starter Guide
 
@@ -87,7 +81,7 @@ open the mobile camera.
         
         ./gradlew bootrun
 
-6. You will now be able to run the application on your local machine with URL:
+6. You will now be able to run the back end on your local machine with URL:
 
         http://localhost:5000
 
@@ -103,11 +97,6 @@ open the mobile camera.
 ### CRUD Repositories
 - [Building Repository](./src/main/java/com/teamshort/rocks/YourPackageIsHere/repository/BuildingRepository.java)
 - [Tenant Repository](./src/main/java/com/teamshort/rocks/YourPackageIsHere/repository/TenantRepository.java)
-
-### Screen Shots
-![image](https://i.imgur.com/geZ4PIG.png)
-![image](https://i.imgur.com/oys3Oqt.png)
-![image](https://i.imgur.com/28D097B.png)
 
 ### License - MIT
 
