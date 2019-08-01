@@ -16,3 +16,5 @@ artifacts:
   type: zip
   files:
     - 'build/libs/*.jar'
+  name: build/libs/application.jar
+  discard-paths: yes
