@@ -103,7 +103,7 @@ public class BuildingController {
                     AmazonSimpleEmailServiceClientBuilder.standard()
                             // Replace US_WEST_2 with the AWS Region you're using for
                             // Amazon SES.
-                            .withRegion(Regions.US_EAST_1).build();
+                            .withRegion(Regions.US_WEST_2).build();
             SendEmailRequest request = new SendEmailRequest()
                     .withDestination(
                             new Destination().withToAddresses(TO))
