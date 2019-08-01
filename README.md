@@ -51,7 +51,7 @@ open the mobile camera.
 - If there are no matches it will give a message saying that there were no tenants found.
 
 #### Deployed Link: 
-- [www.yourpackageishere.com](https://www.yourpackageishere.com/)
+- [api.yourpackageishere.com](api.yourpackageishere.com/)
 
 ### To run your backend locally:
 
@@ -63,12 +63,7 @@ open the mobile camera.
             
            CREATE DATABASE yourpackageishere;
            
-3. Before adding anything, run the following command in your database
- 
-            INSERT INTO roles(name) VALUES('ROLE_USER');
-            INSERT INTO roles(name) VALUES('ROLE_ADMIN');
-           
-4. On your application.properties, make sure postgres is set up on with your individual user environment variables
+4. On your application.properties, make sure postgres is set up on with your individual user environment variables.
 
         spring.datasource.url=${DATABASE_URL}
         spring.datasource.username=${DATABASE_USERNAME}
@@ -84,6 +79,57 @@ open the mobile camera.
 6. You will now be able to run the back end on your local machine with URL:
 
         http://localhost:5000
+        
+        
+### To run your backend in Code Pipeline for AWS:
+
+1. This is dependent on your buildspec.yml (there's an example in this repo) & your build.grade having the below lines of code to name your jar file according.\
+`
+bootJar {
+	archiveFileName = 'application.jar'
+}
+`
+
+1. Start by creating a code build and verify that your code gets built before taking the extra steps for the pipeline.
+    
+    - Project Configuration
+        - Name the project
+    - Source
+        - Set Source Provider to Github
+        - Set Repository to your repository
+    - Environment
+        - Managed image (selected)
+        - Operating System: Ubuntu
+        - Either create a new or use an existing build role (just name it)
+    - Buildspec
+        - Use a build spec file (use the build spec file we have in here) 
+    - Artifacts
+        - No Artifacts
+    - Logs
+        - Up to you  
+        
+1.  Assuming your code builds.  You can then hook this into code pipeline. Create a code pipeline.
+
+    - Pipeline Settings
+        - Pipeline Name: <project>-CP
+        - New or Existing depending if you have made a pipeline(if its new it'll make the name)
+    - Source 
+        - Set Source Provider to Github
+        - Connect to Github
+        - Select your repository
+        - Select Github webhooks.(You need admin privileges for organization projects for this to work, if you have an error about webhooks..its this)
+    - Build
+        - Build Provider: AWS Codebuild
+        - Region: whatever region you made your CodeBuild previously in.
+        - Select your Code Build projects name.
+    - Deploy
+        - Deploy Provider: AWS Elastic Beanstalk
+        - Region: Select the region your Application is in 
+        - Application name: Name of the application
+        - Environment name: Select the name of the environment
+    - Review
+        - Review everything then click create pipeline.
+
 
 ### Entities
 - [Building](./src/main/java/com/teamshort/rocks/YourPackageIsHere/model/Building.java)
