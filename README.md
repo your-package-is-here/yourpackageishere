@@ -35,9 +35,15 @@ As a developers, leveraging delivery APIs to scan QR code or bar code to get the
 
 
 ### Frameworks & Technologies Used
-   - Spring Boot
    - Java
+   	- Spring Boot
    - AWS Services 
+   	- S3 (React front end)
+	- EB (with Load Balancer)
+	- RDS (PSQL)
+	- Code Pipeline / Code Build
+	- Amplify
+	- Route 53 / ACM
    
 ### Starter Guide
 
